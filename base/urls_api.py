@@ -12,4 +12,5 @@ from django.urls import include, path
 urlpatterns = [
     path('usuario/api/v1/', include('usuario.api.routers')),
     path('configuracao_core/api/v1/', include('configuracao_core.api.routers')),
+    path('portifolio/api/v1/', include('portifolio.api.routers')),
 ]
