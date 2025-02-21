@@ -69,11 +69,7 @@ class Foto(Base):
             FileSizeValidator(max_size=5),
         ],
     )
-    album = models.ForeignKey(
-        Album,
-        on_delete=models.CASCADE,
-        related_name='photos'
-    )
+
     
     class Meta:
         verbose_name = "Foto"
