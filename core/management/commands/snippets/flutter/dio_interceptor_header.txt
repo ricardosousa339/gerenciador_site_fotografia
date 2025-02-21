@@ -1,0 +1,29 @@
+///
+/// [Arquivo gerado automaticamente pelo AgtecCore]
+///
+/// [Arquivo travado]
+/// Para evitar que o arquivo seja reescrito acidentalmente, 
+/// o mesmo encontra-se "travado", para destravar remova o # da linha abaixo.
+/// 
+/// #FileLocked
+///
+
+import 'package:dio/dio.dart';
+
+import '../../../apps/auth/data.dart';
+import '../../../core/config.dart';
+
+final class HeaderTokenInterceptor extends Interceptor {
+  @override
+  Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    final String accessToken = await AuthData().getJWTToken();
+    if (accessToken.isNotEmpty) {
+      options.headers.addAll({'Authorization': 'Bearer $accessToken'});
+    } else {
+      options.headers.addAll({'Authorization': Config.drfToken});
+    }
+    options.connectTimeout = const Duration(seconds: 20);
+    options.receiveTimeout = const Duration(seconds: 20);
+    return super.onRequest(options, handler);
+  }
+}

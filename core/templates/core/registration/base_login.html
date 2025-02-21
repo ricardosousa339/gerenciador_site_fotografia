@@ -1,0 +1,112 @@
+{% load static %}
+{% load base %}
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>
+            {% block title %}
+            {% endblock title %}
+        </title>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1" />
+        <meta name="description" content="" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+        <link rel="icon" type="image/x-icon" href="{{ imagens_sistema.favicon }}" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet"
+              href="{% static 'core/vendor/libs/fontawesome/css/fontawesome.min.css' %}" />
+        <!-- Bootstrap -->
+        <link rel="stylesheet"
+              href="{% static 'core/vendor/libs/bootstrap/css/bootstrap.min.css' %}" />
+        <!-- Fonte Rawline-->
+        <link rel="stylesheet"
+              href="{% static 'core/vendor/fonts/rawline/css/rawline.css' %}" />
+        <!-- Design System de Governo-->
+        <link rel="stylesheet"
+              href="{% static 'core/vendor/libs/govbr/core.min.css' %}" />
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="{% static 'core/css/custom.css' %}" />
+        <link rel="stylesheet" href="{% static 'core/css/login.css' %}" />
+        {% block extra_css %}
+        {% endblock extra_css %}
+    </head>
+    <body style="background-image: url({{ background }});
+                 background-size: cover">
+        <div class="login-card">
+            <div class="d-flex flex-column justify-content-center gap-medium">
+                <div class="text-center">
+                    <img class="logo-sistema"
+                         width="auto"
+                         height="80vh"
+                         src="{{ logo_sistema }}"
+                         alt="{{ system_name }}" />
+                </div>
+                <div>
+                    <p class="text-center fw-bold">
+                        {% block page_title %}
+                        {% endblock page_title %}
+                    </p>
+                </div>
+                {% include "core/block/notifications.html" %}
+                {% if form.non_field_errors %}
+                    <div class="br-message danger rounder-md">
+                        <div class="icon">
+                            <i class="fas fa-times-circle fa-lg" aria-hidden="true"></i>
+                        </div>
+                        <div class="content">
+                            <span class="message-title">{{ form.non_field_errors.as_text }}</span>
+                        </div>
+                        <div class="close">
+                            <button class="br-button circle small" type="button" aria-label="Fechar">
+                                <i class="fas fa-times" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+                <form method="post" class="d-flex flex-column gap-medium">
+                    {% block form %}
+                    {% endblock form %}
+                    <div>
+                        <button type="submit" class="br-button block primary">
+                            {% block submit_text %}
+                            {% endblock submit_text %}
+                        </button>
+                    </div>
+                    {% block botao_extra %}
+                    {% endblock botao_extra %}
+                </form>
+                <div class="text-center mt-5">
+                    <div class="d-flex justify-content-center gap-large">
+                        {% for imagem in imagens_sistema.login %}
+                            <div>
+                                <img src="{{ imagem.imagem }}"
+                                     width="auto"
+                                     height="80vh"
+                                     alt="{{ imagem.titulo }}" />
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-47831155-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- Fim do Google Analytics -->
+    {% block extra_js %}
+    {% endblock extra_js %}
+</html>

@@ -1,0 +1,9 @@
+from django.urls import path, include
+from $app_name$.views.$model_name$ import (
+    $ModelClass$CreateView,
+    $ModelClass$DetailView,
+    $ModelClass$DeleteView,
+    $ModelClass$ListView,
+    $ModelClass$RestoreView,
+    $ModelClass$UpdateView
+)

@@ -1,0 +1,69 @@
+{% extends "core/index_create.html" %}
+{% load base %}
+{% load static %}
+{% block title %}
+    Meu Perfil
+{% endblock title %}
+{% block title_modulo %}
+    <h4 class="font-weight-bold py-3 mb-4">
+        <span class="text-muted font-weight-light">Perfil /</span> Atualizar
+    </h4>
+{% endblock title_modulo %}
+<div class="row">
+    {% block form_app %}
+        <form id="update-form"
+              enctype="multipart/form-data"
+              name="update-form"
+              method="post"
+              action="{% url 'core:profile' %}">
+            <div class="col-lg-6 col-xl-4">
+                <div class="card-body">
+                    {% csrf_token %}
+                    <div class="form-floating mb-3">
+                        <input name="{{ form.login.html_name }}"
+                               placeholder="Login"
+                               id="{{ form.login.id_for_label }}"
+                               value="{{ user.username }}"
+                               type="text"
+                               class="form-control"
+                               readonly />
+                        <label for="{{ form.login.id_for_label }}">Login</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group  col-md-12">
+                            {{ form.first_name.label_tag }}
+                            {{ form.first_name }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            {{ form.last_name.label_tag }}
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                            <div class="invalid-feedback">{{ form.email.errors }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-buttons-start gap-small p-3">
+                <div>
+                    <a class="br-button block secondary"
+                       href="{% url 'core:password-update' %}">Alterar Senha</a>
+                </div>
+            </div>
+            <div class="card-footer flex-buttons-end gap-small">
+                <div>
+                    <a class="br-button block" href="{% url 'core:index' %}">Voltar</a>
+                </div>
+                <div>
+                    <input type="submit" class="br-button primary block" value="Salvar" />
+                </div>
+            </div>
+        </form>
+    {% endblock form_app %}
+</div>

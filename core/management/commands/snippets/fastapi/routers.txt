@@ -1,0 +1,110 @@
+import uuid
+from typing import Any
+
+from fastapi import APIRouter, Depends, Request, Response, status, BackgroundTasks
+
+from authentication import security
+from core.config import settings
+from core.database import AsyncDBDependency
+from core.exceptions import NotFoundException, UUIDValueException
+from core.functions import valid_uuid
+from core.schemas import PaginationBase
+from core.redis import redis_service
+from . import schemas
+from .use_cases import $model$ as use_cases
+
+router = APIRouter()
+
+GET_DEPENDENCY = Depends(security.has_permission('$app$.view_$model$'))
+CREATE_DEPENDENCY = Depends(security.has_permission('$app$.add_$model$'))
+UPDATE_DEPENDENCY = Depends(security.has_permission('$app$.change_$model$'))
+DELETE_DEPENDENCY = Depends(security.has_permission('$app$.delete_$model$'))
+RESTORE_DEPENDENCY = [UPDATE_DEPENDENCY, DELETE_DEPENDENCY]
+
+MODEL_NAME = '$model$'
+
+model_router = APIRouter(
+        prefix=f'/{MODEL_NAME}',
+        tags=[f'{MODEL_NAME}'],
+        dependencies= [] if settings.debug else [security.ACTIVE_USER_DEPENDENCY]
+    )
+
+@model_router.get('/clear-cache', dependencies=[] if settings.debug else [GET_DEPENDENCY])
+async def clear_cache(request: Request) -> Any:
+    result = use_cases.clear_cache(MODEL_NAME)
+    if result:
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
+    return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@model_router.get('/refresh-cache', dependencies=[] if settings.debug else [GET_DEPENDENCY])
+async def refresh_cache(
+    bg_tasks: BackgroundTasks, request: Request, db: AsyncDBDependency
+) -> Any:
+    return await use_cases.refresh_cache(
+        request=request, bg_tasks=bg_tasks, db=db, resource=MODEL_NAME
+    )
+
+@model_router.get(
+    '/',
+    response_model=PaginationBase,
+    dependencies=[] if settings.debug else [GET_DEPENDENCY]
+)
+@redis_service.cache_request(MODEL_NAME)
+async def fetch(request: Request, db: AsyncDBDependency, offset: int = 0, limit: int = 25) -> Any:
+    return await use_cases.get_paginate(
+        db,
+        request=request,
+        offset=offset,
+        limit=limit,
+        model_pydantic=schemas.$ModelClass$
+    )
+
+@model_router.post(
+    '/',
+    response_model=schemas.$ModelClass$Create,
+    dependencies=[] if settings.debug else [CREATE_DEPENDENCY]
+)
+@redis_service.cache_request(MODEL_NAME)
+async def create(request: Request, db: AsyncDBDependency, data: schemas.$ModelClass$Create) -> Any:
+    return await use_cases.create(db, data)
+
+@model_router.get(
+    '/{id}',
+    response_model=schemas.$ModelClass$,
+    dependencies=[Depends(valid_uuid)] if settings.debug else [GET_DEPENDENCY, Depends(valid_uuid)]
+)
+@redis_service.cache_request(MODEL_NAME, id_recursos=['id'])
+async def get(request: Request, id: str, db: AsyncDBDependency) -> Any:
+    return await use_cases.get(db, id)
+
+@model_router.put(
+    '/{id}',
+    response_model=schemas.$ModelClass$Update,
+    dependencies=[Depends(valid_uuid)] if settings.debug else [UPDATE_DEPENDENCY, Depends(valid_uuid)]
+)
+@redis_service.cache_request(MODEL_NAME, id_recursos=['id'])
+async def update(request: Request, db: AsyncDBDependency, id: str, data: schemas.$ModelClass$Update) -> Any:
+    item = await use_cases.get(db, id)
+    return await use_cases.update(db, item, data)
+
+@model_router.delete(
+    '/{id}',
+    response_model=schemas.$ModelClass$,
+    dependencies=[Depends(valid_uuid)] if settings.debug else[DELETE_DEPENDENCY, Depends(valid_uuid)]
+)
+@redis_service.cache_request(MODEL_NAME, id_recursos=['id'])
+async def delete(request: Request, db: AsyncDBDependency, id: str) -> Any:
+    await use_cases.delete(db, id)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+@model_router.put(
+    '/restore/{id}',
+    response_model=schemas.$ModelClass$,
+    dependencies=[Depends(valid_uuid)] if settings.debug else [*RESTORE_DEPENDENCY, Depends(valid_uuid)]
+)
+@redis_service.cache_request(MODEL_NAME, id_recursos=['id'])
+async def restore(request: Request, db: AsyncDBDependency, id: str) -> Any:
+    item = await use_cases.get(db=db, id=id, deleted=True)
+    return await use_cases.restore(db, item)
+
+router.include_router(model_router)

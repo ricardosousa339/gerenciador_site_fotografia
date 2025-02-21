@@ -1,0 +1,22 @@
+[tool.taskipy.settings]
+user_vars = true
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.black]
+max-line-length = 88
+line-length = 88
+ignore = "E203, W503"
+extend-exclude = '''
+(
+  ^/docs/*
+  ^.venv/*
+  ^.env/
+)
+'''
+
+[tool.taskipy.tasks]
+run = "fastapi dev --host 0.0.0.0 --port 8181 --reload"
+test = "pytest -s -x -vv"

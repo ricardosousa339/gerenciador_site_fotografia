@@ -1,0 +1,21 @@
+///
+/// [Arquivo gerado automaticamente pelo AgtecCore]
+///
+/// [Arquivo travado]
+/// Para evitar que o arquivo seja reescrito acidentalmente, 
+/// o mesmo encontra-se "travado", para destravar remova o # da linha abaixo.
+/// 
+/// #FileLocked
+///
+
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+extension SizeScreenExtensions on num {
+  double get w => ScreenUtil().setWidth(this);
+  double get h => ScreenUtil().setHeight(this);
+  double get r => ScreenUtil().radius(this);
+  double get sp => ScreenUtil().setSp(this);
+  double get sw => ScreenUtil().screenWidth * this;
+  double get sh => ScreenUtil().screenHeight * this;
+  double get sbh => ScreenUtil().statusBarHeight * this;
+}

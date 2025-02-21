@@ -1,0 +1,38 @@
+site_name: AGTEC Core
+repo_url: https://github.com/AgtecPalmas/AgtecCore
+repo_name: AGTEC Core
+
+theme:
+  name: material
+  language: pt-BR
+  logo: assets/logo_agtec.svg
+  favicon: assets/logo_agtec.svg
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - attr_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - with-pdf:
+      author: AGTEC Core
+#      Por padrão, o título do PDF é o mesmo do site_name, ultilizando o cover_title é possível alterar o título do PDF.
+#      cover_title: Documentação AGTEC Core
+      cover_subtitle: Documentação para utilização do AGTEC Core
+      toc_level: 6
+      toc_title: Índice

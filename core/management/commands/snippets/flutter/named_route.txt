@@ -1,0 +1,43 @@
+///
+/// [Arquivo gerado automaticamente pelo AgtecCore]
+///
+/// [Arquivo travado]
+/// Para evitar que o arquivo seja reescrito acidentalmente, 
+/// o mesmo encontra-se "travado", para destravar remova o # da linha abaixo.
+/// 
+/// #FileLocked
+///
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
+$IMPORTS$
+
+class RouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    /// Recuperando os agumentos passados como parâmetro
+    final args = settings.arguments;
+
+    /// Switch para identificar qual rota está sendo invocada
+    switch (settings.name) {
+      $ROUTES_APPS$
+      default:
+        /// Caso a rota invocada não exista será mostrado o views de erro.
+        return _errorRoute();
+    }
+  }
+
+  static Route<dynamic> _errorRoute() {
+    return MaterialPageRoute(builder: (_) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Error'),
+        ),
+        body: const Center(
+          child: Text('ERROR'),
+        ),
+      );
+    });
+  }
+}
