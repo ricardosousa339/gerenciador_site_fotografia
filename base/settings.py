@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "portifolio",
-    "django_dia"
     # Apps do projeto
 ]
 
