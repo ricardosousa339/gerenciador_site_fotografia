@@ -16,6 +16,14 @@ from portifolio.views.foto import (
     FotoRestoreView,
     FotoUpdateView,
 )
+from portifolio.views.imagemheader import (
+    ImagemHeaderCreateView,
+    ImagemHeaderDeleteView,
+    ImagemHeaderDetailView,
+    ImagemHeaderListView,
+    ImagemHeaderRestoreView,
+    ImagemHeaderUpdateView,
+)
 from portifolio.views.index import PortifolioIndexTemplateView
 
 app_name = "portifolio"
@@ -64,5 +72,39 @@ urlpatterns += [
         "portifolio/foto/restore/<uuid:pk>/",
         FotoRestoreView.as_view(),
         name="foto-restore",
+    ),
+]
+
+# URLs do Models ImagemHeader
+urlpatterns += [
+    path(
+        "portifolio/imagemheader/",
+        ImagemHeaderListView.as_view(),
+        name="imagemheader-list",
+    ),
+    path(
+        "portifolio/imagemheader/create/",
+        ImagemHeaderCreateView.as_view(),
+        name="imagemheader-create",
+    ),
+    path(
+        "portifolio/imagemheader/<uuid:pk>/",
+        ImagemHeaderDetailView.as_view(),
+        name="imagemheader-detail",
+    ),
+    path(
+        "portifolio/imagemheader/update/<uuid:pk>/",
+        ImagemHeaderUpdateView.as_view(),
+        name="imagemheader-update",
+    ),
+    path(
+        "portifolio/imagemheader/delete/<uuid:pk>/",
+        ImagemHeaderDeleteView.as_view(),
+        name="imagemheader-delete",
+    ),
+    path(
+        "portifolio/imagemheader/restore/<uuid:pk>/",
+        ImagemHeaderRestoreView.as_view(),
+        name="imagemheader-restore",
     ),
 ]

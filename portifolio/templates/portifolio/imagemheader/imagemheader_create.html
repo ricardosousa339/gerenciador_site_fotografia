@@ -53,20 +53,12 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                         </div>
                     {% endif %}
                     <div class="form-row">
-                        {% if form.titulo in form.visible_fields %}
+                        {% if form.imagem in form.visible_fields %}
                             <div class="form-group col-md-6">
-                                {{ form.titulo.label_tag }}
-                                {{ form.titulo }}
-                                {% if form.titulo.help_text %}<small class="form-text text-muted">{{ form.titulo.help_text }}</small>{% endif %}
-                                <div class="invalid-feedback">{{ form.titulo.errors }}</div>
-                            </div>
-                        {% endif %}
-                        {% if form.url in form.visible_fields %}
-                            <div class="form-group col-md-6">
-                                {{ form.url.label_tag }}<span class="text-muted ml-1">(Opcional)</span>
-                                {{ form.url }}
-                                {% if form.url.help_text %}<small class="form-text text-muted">{{ form.url.help_text }}</small>{% endif %}
-                                <div class="invalid-feedback">{{ form.url.errors }}</div>
+                                {{ form.imagem.label_tag }}
+                                {{ form.imagem }}
+                                {% if form.imagem.help_text %}<small class="form-text text-muted">{{ form.imagem.help_text }}</small>{% endif %}
+                                <div class="invalid-feedback">{{ form.imagem.errors }}</div>
                             </div>
                         {% endif %}
                         {% if form.usuario in form.visible_fields %}
@@ -75,14 +67,6 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                                 {{ form.usuario }}
                                 {% if form.usuario.help_text %}<small class="form-text text-muted">{{ form.usuario.help_text }}</small>{% endif %}
                                 <div class="invalid-feedback">{{ form.usuario.errors }}</div>
-                            </div>
-                        {% endif %}
-                        {% if form.capa in form.visible_fields %}
-                            <div class="form-group col-md-6">
-                                {{ form.capa.label_tag }}<span class="text-muted ml-1">(Opcional)</span>
-                                {{ form.capa }}
-                                {% if form.capa.help_text %}<small class="form-text text-muted">{{ form.capa.help_text }}</small>{% endif %}
-                                <div class="invalid-feedback">{{ form.capa.errors }}</div>
                             </div>
                         {% endif %}
                     </div>
@@ -190,7 +174,8 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                 <div class="card-footer">
                     <div class="btn-toolbar flex-buttons-end gap-small" role="toolbar">
                         <div>
-                            <a class="br-button block" href="{% url 'portifolio:album-list' %}">Voltar</a>
+                            <a class="br-button block"
+                               href="{% url 'portifolio:imagemheader-list' %}">Voltar</a>
                         </div>
                         <div>
                             <button type="submit"

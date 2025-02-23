@@ -17,8 +17,8 @@ class FotoListView(BaseListView):
     model = Foto
     template_name = "portifolio/foto/foto_list.html"
     context_object_name = "foto"
-    list_display = ["album", "nome", "url"]
-    search_fields = ["album", "nome", "url"]
+    list_display = ["nome"]
+    search_fields = ["nome"]
     paginate_by = 10
 
     def get_context_data(self, **kwargs):

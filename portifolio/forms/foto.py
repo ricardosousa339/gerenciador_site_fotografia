@@ -8,3 +8,6 @@ class FotoForm(BaseForm):
     class Meta:
         exclude = ["deleted", "enabled"]
         model = Foto
+
+
+class FotoModalForm(FotoForm): ...

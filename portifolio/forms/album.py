@@ -8,6 +8,3 @@ class AlbumForm(BaseForm):
     class Meta:
         exclude = ["deleted", "enabled"]
         model = Album
-
-
-class AlbumModalForm(AlbumForm): ...

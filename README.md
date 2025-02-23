@@ -8,7 +8,7 @@
 
 ## Dados do Projeto
 
-> **Data da Criação** : 21/02/2025  
+> **Data da Criação** : 23/02/2025  
 > **Django Version** : 4.2  
 > **Python Version**: 3.10  
 > **PostgreSQL Version** : 14.2
@@ -16,7 +16,7 @@
 ## Analista Responsável
 
 > Ricardo Henrique  
-> agtec@palmas.to.gov.br
+> dev.ricardohenrique@gmail.com
 
 ### Gerando a nova Secret Key
 

@@ -27,7 +27,7 @@ class Album(Base):
     class Meta:
         verbose_name = "Álbum"
         verbose_name_plural = "Álbuns"
-        fields_display = ["titulo", "usuario", "url"]
+        fields_display = ["titulo", "usuario", "url", "categoria"]
         # icon_model = "fas fa-user"
 
     def __str__(self):

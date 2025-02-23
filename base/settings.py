@@ -288,9 +288,9 @@ SPECTACULAR_SETTINGS = {
     },
     "CONTACT": {
         "name": "Ricardo Henrique",
-        "email": "agtec@palmas.to.gov.br",
+        "email": "dev.ricardohenrique@gmail.com",
     },
-    "TOS": "https://www.palmas.to.gov.br/",
+    "TOS": "https://www.ricardomachado.me/",
     "SERVE_PERMISSIONS": [
         "rest_framework.permissions.IsAuthenticated",
         "rest_framework.permissions.IsAdminUser",

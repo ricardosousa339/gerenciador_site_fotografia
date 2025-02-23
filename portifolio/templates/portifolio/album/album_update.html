@@ -86,12 +86,28 @@ Delete (Deletar um novo registro via API)
                                 <div class="invalid-feedback">{{ form.titulo.errors }}</div>
                             </div>
                         {% endif %}
+                        {% if form.url in form.visible_fields %}
+                            <div class="form-group col-md-6">
+                                {{ form.url.label_tag }}<span class="text-muted ml-1">(Opcional)</span>
+                                {{ form.url }}
+                                {% if form.url.help_text %}<small class="form-text text-muted">{{ form.url.help_text }}</small>{% endif %}
+                                <div class="invalid-feedback">{{ form.url.errors }}</div>
+                            </div>
+                        {% endif %}
                         {% if form.usuario in form.visible_fields %}
                             <div class="form-group col-md-6">
                                 {{ form.usuario.label_tag }}
                                 {{ form.usuario }}
                                 {% if form.usuario.help_text %}<small class="form-text text-muted">{{ form.usuario.help_text }}</small>{% endif %}
                                 <div class="invalid-feedback">{{ form.usuario.errors }}</div>
+                            </div>
+                        {% endif %}
+                        {% if form.capa in form.visible_fields %}
+                            <div class="form-group col-md-6">
+                                {{ form.capa.label_tag }}<span class="text-muted ml-1">(Opcional)</span>
+                                {{ form.capa }}
+                                {% if form.capa.help_text %}<small class="form-text text-muted">{{ form.capa.help_text }}</small>{% endif %}
+                                <div class="invalid-feedback">{{ form.capa.errors }}</div>
                             </div>
                         {% endif %}
                     </div>

@@ -17,8 +17,8 @@ class AlbumListView(BaseListView):
     model = Album
     template_name = "portifolio/album/album_list.html"
     context_object_name = "album"
-    list_display = ["titulo", "usuario"]
-    search_fields = ["titulo", "usuario"]
+    list_display = ["titulo", "url", "usuario"]
+    search_fields = ["titulo", "url", "usuario"]
     paginate_by = 10
 
     def get_context_data(self, **kwargs):

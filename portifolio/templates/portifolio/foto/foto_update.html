@@ -86,20 +86,12 @@ Delete (Deletar um novo registro via API)
                                 <div class="invalid-feedback">{{ form.nome.errors }}</div>
                             </div>
                         {% endif %}
-                        {% if form.url in form.visible_fields %}
+                        {% if form.arquivo in form.visible_fields %}
                             <div class="form-group col-md-6">
-                                {{ form.url.label_tag }}
-                                {{ form.url }}
-                                {% if form.url.help_text %}<small class="form-text text-muted">{{ form.url.help_text }}</small>{% endif %}
-                                <div class="invalid-feedback">{{ form.url.errors }}</div>
-                            </div>
-                        {% endif %}
-                        {% if form.album in form.visible_fields %}
-                            <div class="form-group col-md-6">
-                                {{ form.album.label_tag }}
-                                {{ form.album }}
-                                {% if form.album.help_text %}<small class="form-text text-muted">{{ form.album.help_text }}</small>{% endif %}
-                                <div class="invalid-feedback">{{ form.album.errors }}</div>
+                                {{ form.arquivo.label_tag }}<span class="text-muted ml-1">(Opcional)</span>
+                                {{ form.arquivo }}
+                                {% if form.arquivo.help_text %}<small class="form-text text-muted">{{ form.arquivo.help_text }}</small>{% endif %}
+                                <div class="invalid-feedback">{{ form.arquivo.errors }}</div>
                             </div>
                         {% endif %}
                     </div>

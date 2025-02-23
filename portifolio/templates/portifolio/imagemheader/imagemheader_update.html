@@ -1,18 +1,50 @@
-{% extends "core/index_create.html" %}
+{% extends "core/index_update.html" %}
 {% load base %}
 {% load static %}
 <!--
 Arquivo gerado automaticamente pelo build.
 Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerquilha) antes da palavra a seguir
 #FileLocked
+
+Exemplos AJAX consumindo a API DRJ
+
+Get (Consultar um novo registro via API)
+
+Post (Salvar um novo registro via API)
+
+{% block javascript %}
+<script>
+    $("#IdDoElementoQueDisparaOPostParaAAPI").change(function() {
+        var form = $(this).closest("IdDoFormQueTeraOsDadosSerializadosParaEnviarAView");
+        $.ajax({
+            url: // Url da view que recebera o post e executará a ação,
+                data: form.serialize(),
+            dataType: 'json', // Formato dos dados a serem enviados.
+            // Método chamado caso o processamento tenha sido realizado com sucesso.
+            success: function(reponse) {
+                // Trabalhar os dados retornados na variável response vindos da Views
+                // console.table(response);
+            }
+            // Método chamado quando é retornado qualquer erro da API
+            error: function(xhr, errmsg, err) {
+                // console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+Put (Atualizar um novo registro via API)
+
+Delete (Deletar um novo registro via API)
 -->
 {% block title %}
-    Criação de Portifolio
+    Atualização de Portifolio
 {% endblock title %}
 <span class="text-muted font-weight-light"></span>
 {% block title_modulo %}
     <h4 class="font-weight-bold py-3 mb-4">
-        <span class="text-muted font-weight-light">Portifolio /</span> Adicionar {{ model_name }}
+        <span class="text-muted font-weight-light">Portifolio /</span> Atualização {{ model_name }}
     </h4>
 {% endblock title_modulo %}
 <div class="row">
@@ -41,32 +73,17 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                     {% csrf_token %}
                     {% for hidden_field in form.hidden_fields %}{{ hidden_field }}{% endfor %}
                     {% if form.non_field_errors %}
-                        <div class="br-message danger rounder-md" role="alert">
-                            <div class="content">
-                                {% for error in form.non_field_errors %}{{ error }}{% endfor %}
-                            </div>
-                            <div class="close">
-                                <button class="br-button circle small" type="button" aria-label="Fechar">
-                                    <i class="fas fa-times" aria-hidden="true"></i>
-                                </button>
-                            </div>
+                        <div class="alert alert-danger" role="alert">
+                            {% for error in form.non_field_errors %}{{ error }}{% endfor %}
                         </div>
                     {% endif %}
                     <div class="form-row">
-                        {% if form.titulo in form.visible_fields %}
+                        {% if form.imagem in form.visible_fields %}
                             <div class="form-group col-md-6">
-                                {{ form.titulo.label_tag }}
-                                {{ form.titulo }}
-                                {% if form.titulo.help_text %}<small class="form-text text-muted">{{ form.titulo.help_text }}</small>{% endif %}
-                                <div class="invalid-feedback">{{ form.titulo.errors }}</div>
-                            </div>
-                        {% endif %}
-                        {% if form.url in form.visible_fields %}
-                            <div class="form-group col-md-6">
-                                {{ form.url.label_tag }}<span class="text-muted ml-1">(Opcional)</span>
-                                {{ form.url }}
-                                {% if form.url.help_text %}<small class="form-text text-muted">{{ form.url.help_text }}</small>{% endif %}
-                                <div class="invalid-feedback">{{ form.url.errors }}</div>
+                                {{ form.imagem.label_tag }}
+                                {{ form.imagem }}
+                                {% if form.imagem.help_text %}<small class="form-text text-muted">{{ form.imagem.help_text }}</small>{% endif %}
+                                <div class="invalid-feedback">{{ form.imagem.errors }}</div>
                             </div>
                         {% endif %}
                         {% if form.usuario in form.visible_fields %}
@@ -75,14 +92,6 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                                 {{ form.usuario }}
                                 {% if form.usuario.help_text %}<small class="form-text text-muted">{{ form.usuario.help_text }}</small>{% endif %}
                                 <div class="invalid-feedback">{{ form.usuario.errors }}</div>
-                            </div>
-                        {% endif %}
-                        {% if form.capa in form.visible_fields %}
-                            <div class="form-group col-md-6">
-                                {{ form.capa.label_tag }}<span class="text-muted ml-1">(Opcional)</span>
-                                {{ form.capa }}
-                                {% if form.capa.help_text %}<small class="form-text text-muted">{{ form.capa.help_text }}</small>{% endif %}
-                                <div class="invalid-feedback">{{ form.capa.errors }}</div>
                             </div>
                         {% endif %}
                     </div>
@@ -190,29 +199,11 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                 <div class="card-footer">
                     <div class="btn-toolbar flex-buttons-end gap-small" role="toolbar">
                         <div>
-                            <a class="br-button block" href="{% url 'portifolio:album-list' %}">Voltar</a>
+                            <a class="br-button block"
+                               href="{% url 'portifolio:imagemheader-list' %}">Voltar</a>
                         </div>
                         <div>
-                            <button type="submit"
-                                    class="br-button secondary block"
-                                    name="_continue"
-                                    value="Salvar e Continuar">Salvar e Continuar</button>
-                        </div>
-                        <div>
-                            <button type="submit"
-                                    class="br-button secondary block"
-                                    name="_addanother"
-                                    value="Salvar e Adicionar Novo">Salvar e Adicionar Novo</button>
-                        </div>
-                        <div>
-                            {% if list_inlines %}
-                                <button type="submit"
-                                        class="br-button primary block"
-                                        name="_continue"
-                                        value="Salvar Todos">Salvar Todos</button>
-                            {% else %}
-                                <button type="submit" class="br-button primary block" value="Salvar">Salvar</button>
-                            {% endif %}
+                            <button type="submit" class="br-button primary block" value="Salvar">Salvar</button>
                         </div>
                     </div>
                 </div>
