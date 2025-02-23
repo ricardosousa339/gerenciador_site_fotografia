@@ -94,6 +94,14 @@ Delete (Deletar um novo registro via API)
                                 <div class="invalid-feedback">{{ form.arquivo.errors }}</div>
                             </div>
                         {% endif %}
+                        {% if form.usuario in form.visible_fields %}
+                            <div class="form-group col-md-6">
+                                {{ form.usuario.label_tag }}
+                                {{ form.usuario }}
+                                {% if form.usuario.help_text %}<small class="form-text text-muted">{{ form.usuario.help_text }}</small>{% endif %}
+                                <div class="invalid-feedback">{{ form.usuario.errors }}</div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 {% block content_inline %}

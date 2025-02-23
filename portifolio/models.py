@@ -22,6 +22,10 @@ class Album(Base):
         blank=True,
         null=True
     )
+    fotos = models.ManyToManyField(
+        "Foto",
+        related_name='album'
+    )
 
     
     class Meta:
@@ -46,6 +50,11 @@ class Foto(Base):
             FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"]),
             FileSizeValidator(max_size=5),
         ],
+    )
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='fotos'
     )
 
     
@@ -73,7 +82,7 @@ class ImagemHeader(Base):
     class Meta:
         verbose_name = "Imagem de Cabeçalho"
         verbose_name_plural = "Imagens de Cabeçalho"
-        fields_display = ["imagem", "usuario"]
+        fields_display = ["imagem"]
         # icon_model = "fas fa-user"
 
     def __str__(self):
