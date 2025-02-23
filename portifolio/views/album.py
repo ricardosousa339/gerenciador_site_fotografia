@@ -48,6 +48,7 @@ class AlbumDetailView(BaseDetailView):
 
     def get_context_data(self, **kwargs):
         context = super(AlbumDetailView, self).get_context_data(**kwargs)
+        context['fotos'] = self.object.fotos.all()  # Ajuste se o related_name for diferente
         return context
 
 

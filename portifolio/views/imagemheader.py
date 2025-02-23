@@ -17,8 +17,8 @@ class ImagemHeaderListView(BaseListView):
     model = ImagemHeader
     template_name = "portifolio/imagemheader/imagemheader_list.html"
     context_object_name = "imagemheader"
-    list_display = ["imagem", "usuario"]
-    search_fields = ["imagem", "usuario"]
+    list_display = ["imagem"]
+    search_fields = ["imagem"]
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
