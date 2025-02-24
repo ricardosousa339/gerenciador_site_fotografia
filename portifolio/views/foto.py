@@ -8,6 +8,7 @@ from core.views.base import (
 )
 from portifolio.forms.foto import FotoForm
 from portifolio.models import Foto
+from usuario.models import Usuario
 
 
 # Views do Models Foto
@@ -61,6 +62,14 @@ class FotoCreateView(BaseCreateView):
     template_name = "portifolio/foto/foto_create.html"
     # inlines = []
     # form_modals = []
+
+    def get_context_data(self, **kwargs):
+        usuario = Usuario.objects.get(django_user=self.request.user)
+        context = super(FotoCreateView, self).get_context_data(**kwargs)
+        context["usuario"] = usuario
+        return context
+    
+
 
 
 class FotoUpdateView(BaseUpdateView):

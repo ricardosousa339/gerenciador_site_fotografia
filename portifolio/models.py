@@ -86,4 +86,4 @@ class ImagemHeader(Base):
         # icon_model = "fas fa-user"
 
     def __str__(self):
-        return self.imagem.nome
+        return self.imagem.nome 
