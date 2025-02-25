@@ -61,20 +61,20 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                                 <div class="invalid-feedback">{{ form.titulo.errors }}</div>
                             </div>
                         {% endif %}
-                        {% if form.descricao in form.visible_fields %}
-                            <div class="form-group col-md-6">
-                                {{ form.descricao.label_tag }}
-                                {{ form.descricao }}
-                                {% if form.descricao.help_text %}<small class="form-text text-muted">{{ form.descricao.help_text }}</small>{% endif %}
-                                <div class="invalid-feedback">{{ form.descricao.errors }}</div>
-                            </div>
-                        {% endif %}
                         {% if form.imagem in form.visible_fields %}
                             <div class="form-group col-md-6">
                                 {{ form.imagem.label_tag }}<span class="text-muted ml-1">(Opcional)</span>
                                 {{ form.imagem }}
                                 {% if form.imagem.help_text %}<small class="form-text text-muted">{{ form.imagem.help_text }}</small>{% endif %}
                                 <div class="invalid-feedback">{{ form.imagem.errors }}</div>
+                            </div>
+                        {% endif %}
+                        {% if form.descricao in form.visible_fields %}
+                            <div class="form-group col-md-6">
+                                {{ form.descricao.label_tag }}
+                                {{ form.descricao }}
+                                {% if form.descricao.help_text %}<small class="form-text text-muted">{{ form.descricao.help_text }}</small>{% endif %}
+                                <div class="invalid-feedback">{{ form.descricao.errors }}</div>
                             </div>
                         {% endif %}
                         {% if form.usuario in form.visible_fields %}

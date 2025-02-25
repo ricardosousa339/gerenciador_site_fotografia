@@ -20,18 +20,21 @@ class Album(Base):
         on_delete=models.SET_NULL,
         related_name='cover',
         blank=True,
-        null=True
+        null=True,
+        help_text="Você deve criar uma foto então poderá selecioná-la aqui, para ser a capa do álbum",
     )
     fotos = models.ManyToManyField(
         "Foto",
-        related_name='album'
+        related_name='album',
+        help_text="Crie as Fotos e elas aparecerão aqui pra serem selecionadas",
     )
     categoria = models.ForeignKey(
         "Categoria",
         on_delete=models.SET_NULL,
         related_name='albums',
         blank=True,
-        null=True
+        null=True,
+        help_text="Crie as Categorias e elas aparecerão aqui pra serem selecionadas",
     )
 
     class Meta:
@@ -77,7 +80,8 @@ class ImagemHeader(Base):
     imagem = models.ForeignKey(
         Foto,
         on_delete=models.CASCADE,
-        related_name='header'
+        related_name='header',
+        help_text="Você deve criar uma foto então poderá selecioná-la aqui, para ficar em destaque"
     )
     usuario = models.ForeignKey(
         Usuario,
@@ -121,13 +125,18 @@ class Categoria(Base):
 
 class SecaoSobre(Base):
     titulo = models.CharField(max_length=255)
-    descricao = models.TextField()
+    descricao = models.TextField(
+        max_length=1000,
+        help_text="Texto da Seção Sobre"
+    )
+    
     imagem = models.ForeignKey(
         Foto,
         on_delete=models.SET_NULL,
         related_name='secao_sobre',
         blank=True,
-        null=True
+        null=True,
+        help_text="Imagem da seção"
     )
     usuario = models.ForeignKey(
         Usuario,
@@ -136,7 +145,8 @@ class SecaoSobre(Base):
     )
     fatos_sobre = models.ManyToManyField(
         "FatoSobre",
-        related_name='secoes_sobre_many'  # alterado para evitar conflito
+        related_name='secoes_sobre_many',
+        help_text="Crie os Fatos Sobre e eles aparecerão aqui pra serem selecionados"
     )
 
     class Meta:
@@ -162,7 +172,7 @@ class FatoSobre(Base):
         # icon_model = "fas fa-user"
 
     def __str__(self):
-        return self.titulo
+        return self.titulo + " - " + self.subtitulo
 
 class MensagemContato(Base):
     nome = models.CharField(max_length=255)
