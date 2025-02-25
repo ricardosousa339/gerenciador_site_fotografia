@@ -2,11 +2,18 @@ from rest_framework import routers
 
 from portifolio.api.views.album import AlbumReadOnlyAPI, AlbumViewAPI
 from portifolio.api.views.categoria import CategoriaReadOnlyAPI, CategoriaViewAPI
+from portifolio.api.views.fatosobre import FatoSobreReadOnlyAPI, FatoSobreViewAPI
 from portifolio.api.views.foto import FotoReadOnlyAPI, FotoViewAPI
 from portifolio.api.views.imagemheader import (
     ImagemHeaderReadOnlyAPI,
     ImagemHeaderViewAPI,
 )
+from portifolio.api.views.mensagemcontato import (
+    MensagemContatoReadOnlyAPI,
+    MensagemContatoViewAPI,
+)
+from portifolio.api.views.parceiros import ParceirosReadOnlyAPI, ParceirosViewAPI
+from portifolio.api.views.secaosobre import SecaoSobreReadOnlyAPI, SecaoSobreViewAPI
 
 router = routers.DefaultRouter()
 
@@ -30,6 +37,32 @@ router.register(
 # URL para a API Categoria
 router.register(r"categoria", CategoriaViewAPI, "categoria-api")
 router.register(r"categoria_readonly", CategoriaReadOnlyAPI, "categoria-readonly-api")
+
+
+# URL para a API SecaoSobre
+router.register(r"secaosobre", SecaoSobreViewAPI, "secaosobre-api")
+router.register(
+    r"secaosobre_readonly", SecaoSobreReadOnlyAPI, "secaosobre-readonly-api"
+)
+
+
+# URL para a API FatoSobre
+router.register(r"fatosobre", FatoSobreViewAPI, "fatosobre-api")
+router.register(r"fatosobre_readonly", FatoSobreReadOnlyAPI, "fatosobre-readonly-api")
+
+
+# URL para a API MensagemContato
+router.register(r"mensagemcontato", MensagemContatoViewAPI, "mensagemcontato-api")
+router.register(
+    r"mensagemcontato_readonly",
+    MensagemContatoReadOnlyAPI,
+    "mensagemcontato-readonly-api",
+)
+
+
+# URL para a API Parceiros
+router.register(r"parceiros", ParceirosViewAPI, "parceiros-api")
+router.register(r"parceiros_readonly", ParceirosReadOnlyAPI, "parceiros-readonly-api")
 
 
 urlpatterns = router.urls

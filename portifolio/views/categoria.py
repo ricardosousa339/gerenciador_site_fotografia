@@ -42,7 +42,6 @@ class CategoriaListView(BaseListView):
         return qs.filter(usuario=usuario_instance)
 
 
-
 class CategoriaDetailView(BaseDetailView):
     """Classe para gerenciar o detalhe do Categoria"""
 
@@ -65,6 +64,7 @@ class CategoriaCreateView(BaseCreateView):
     context_object_name = "categoria"
     success_url = "portifolio:categoria-list"
     template_name = "portifolio/categoria/categoria_create.html"
+
     # inlines = []
     # form_modals = []
     def form_valid(self, form):
@@ -76,6 +76,7 @@ class CategoriaCreateView(BaseCreateView):
 
         form.instance.usuario = usuario_instance
         return super().form_valid(form)
+
 
 class CategoriaUpdateView(BaseUpdateView):
     """Classe para gerenciar a update do Categoria"""
