@@ -8,6 +8,7 @@ from core.views.base import (
 )
 from portifolio.forms.fatosobre import FatoSobreForm
 from portifolio.models import FatoSobre
+from usuario.models import Usuario
 
 
 # Views do Models FatoSobre
@@ -62,6 +63,21 @@ class FatoSobreCreateView(BaseCreateView):
     # inlines = []
     # form_modals = []
 
+    # def get_form(self, form_class=None):
+    #     form = super().get_form(form_class)
+    #     # Filtra as fotos para incluir apenas as do usuário logado
+    #     form.fields["secao_sobre"].queryset = form.fields["secao_sobre"].queryset.filter(
+    #         usuario=self.request.user.usuario, deleted=False, enabled=True
+    #     )
+    #     return form
+    
+    def form_valid(self, form):
+
+        usuario_instance = self.request.user.usuario
+        usuario_instance = Usuario.objects.get(email=self.request.user.email)
+
+        form.instance.usuario = usuario_instance
+        return super().form_valid(form)
 
 class FatoSobreUpdateView(BaseUpdateView):
     """Classe para gerenciar a update do FatoSobre"""

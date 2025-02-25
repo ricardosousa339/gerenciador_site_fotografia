@@ -23,7 +23,7 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
         <thead>
             <tr>
                 <th class="table-actions" scope="col">Ações</th>
-                <th></th>
+                <th>Título</th>
                 <th scope="col" class="table-delete"></th>
             </tr>
         </thead>
@@ -50,7 +50,7 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                             </a>
                         {% endif %}
                     </td>
-                    <td></td>
+                    <td>{{item.titulo}}</td>
                     <td class="text-center">
                         {% if perms.portifolio.delete_secaosobre %}
                             {% if item.deleted %}

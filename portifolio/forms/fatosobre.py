@@ -6,5 +6,5 @@ class FatoSobreForm(BaseForm):
     """Form padrão para o model FatoSobre"""
 
     class Meta:
-        exclude = ["deleted", "enabled"]
+        exclude = ["deleted", "enabled", "usuario"]
         model = FatoSobre

@@ -6,5 +6,5 @@ class ParceirosForm(BaseForm):
     """Form padrão para o model Parceiros"""
 
     class Meta:
-        exclude = ["deleted", "enabled"]
+        exclude = ["deleted", "enabled", "usuario"]
         model = Parceiros

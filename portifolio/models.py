@@ -53,7 +53,7 @@ class Foto(Base):
         null=True,
         help_text="Arquivo da foto",
         validators=[
-            FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png"]),
+            FileExtensionValidator(allowed_extensions=["jpg", "jpeg", "png", "svg"]),
             FileSizeValidator(max_size=5),
         ],
     )
@@ -154,17 +154,11 @@ class FatoSobre(Base):
     )
     titulo = models.CharField(max_length=255)
     subtitulo = models.CharField(max_length=255)
-    descricao = models.TextField()
-    secao_sobre = models.ForeignKey(
-        SecaoSobre,
-        on_delete=models.CASCADE,
-        related_name='fatos_sobre_fk'  # alterado para evitar conflito
-    )
 
     class Meta:
         verbose_name = "Fato Sobre"
         verbose_name_plural = "Fato Sobre"
-        fields_display = ["titulo"]
+        fields_display = ["titulo", "subtitulo"]
         # icon_model = "fas fa-user"
 
     def __str__(self):
@@ -192,7 +186,7 @@ class MensagemContato(Base):
     
 class Parceiros(Base):
     nome = models.CharField(max_length=255)
-    url = models.URLField()
+    url = models.URLField(null=True, blank=True)
     logo = models.ForeignKey(
         Foto,
         on_delete=models.SET_NULL,

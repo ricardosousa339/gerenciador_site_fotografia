@@ -8,6 +8,7 @@ from core.views.base import (
 )
 from portifolio.forms.parceiros import ParceirosForm
 from portifolio.models import Parceiros
+from usuario.models import Usuario
 
 
 # Views do Models Parceiros
@@ -60,7 +61,20 @@ class ParceirosCreateView(BaseCreateView):
     template_name = "portifolio/parceiros/parceiros_create.html"
     # inlines = []
     # form_modals = []
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Filtra as fotos para incluir apenas as do usuário logado
+        form.fields["logo"].queryset = form.fields["logo"].queryset.filter(
+            usuario=self.request.user.usuario, deleted=False, enabled=True
+        )
+        return form
+    def form_valid(self, form):
 
+        usuario_instance = self.request.user.usuario
+        usuario_instance = Usuario.objects.get(email=self.request.user.email)
+
+        form.instance.usuario = usuario_instance
+        return super().form_valid(form)
 
 class ParceirosUpdateView(BaseUpdateView):
     """Classe para gerenciar a update do Parceiros"""
