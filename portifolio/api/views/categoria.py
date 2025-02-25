@@ -17,7 +17,7 @@ class CategoriaViewAPI(ModelViewSet):
 
     Retorne apenas os campos desejados com o parâmetro fields=campo1,campo2
     """
-
+# TODO: Enviar apenas as categorias do usuário logado (as outras coisas também)
     authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
     queryset = Categoria.objects.select_related().all()

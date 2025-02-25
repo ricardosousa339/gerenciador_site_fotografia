@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "portifolio",
+    "corsheaders",
     # Apps do projeto
 ]
 
@@ -54,10 +55,14 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "core.middleware.header_control.HeaderControlMiddleware",
     "core.middleware.current_user.CurrentUserMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "base.urls"
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+]
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
