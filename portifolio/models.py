@@ -97,17 +97,22 @@ class ImagemHeader(Base):
 
 class Categoria(Base):
     nome = models.CharField(max_length=255)
+    icone = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text="Nome do ícone Lucide (https://lucide.dev)"
+    )
     usuario = models.ForeignKey(
         Usuario,
         on_delete=models.CASCADE,
         related_name='categorias'
     )
 
-    
     class Meta:
         verbose_name = "Categoria"
         verbose_name_plural = "Categorias"
-        fields_display = ["nome"]
+        fields_display = ["nome", "icone"]
         # icon_model = "fas fa-user"
 
     def __str__(self):

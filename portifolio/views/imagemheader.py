@@ -26,21 +26,21 @@ class ImagemHeaderListView(BaseListView):
         context = super(ImagemHeaderListView, self).get_context_data(**kwargs)
         return context
 
+
 def get_queryset(self):
-        """Subscrevendo o queryset para
-        filtrar os dados conforme o perfil logado
+    """Subscrevendo o queryset para
+    filtrar os dados conforme o perfil logado
 
-        Returns:
-            QuerySet
-        """
-        qs = super(ImagemHeaderListView, self).get_queryset()
-        # Se o usuário for um superusuário, retorna todos os registros.
-        if self.request.user.is_superuser:
-            return qs
-        # Caso contrário, filtra os registros associados ao usuário logado.
-        usuario_instance = self.request.user.usuario
-        return qs.filter(usuario=usuario_instance)
-
+    Returns:
+        QuerySet
+    """
+    qs = super(ImagemHeaderListView, self).get_queryset()
+    # Se o usuário for um superusuário, retorna todos os registros.
+    if self.request.user.is_superuser:
+        return qs
+    # Caso contrário, filtra os registros associados ao usuário logado.
+    usuario_instance = self.request.user.usuario
+    return qs.filter(usuario=usuario_instance)
 
 
 class ImagemHeaderDetailView(BaseDetailView):
