@@ -71,6 +71,12 @@ class AlbumCreateView(BaseCreateView):
             deleted=False,
             enabled=True
         )
+
+        form.fields['capa'].queryset = form.fields['capa'].queryset.filter(
+            usuario=self.request.user.usuario,
+            deleted=False,
+            enabled=True
+        )
         return form
     
     def form_valid(self, form):
