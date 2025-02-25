@@ -6,5 +6,5 @@ class AlbumForm(BaseForm):
     """Form padrão para o model Album"""
 
     class Meta:
-        exclude = ["deleted", "enabled"]
+        exclude = ["deleted", "enabled", "usuario"]
         model = Album

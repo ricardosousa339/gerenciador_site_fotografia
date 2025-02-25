@@ -8,6 +8,7 @@ from core.views.base import (
 )
 from portifolio.forms.album import AlbumForm
 from portifolio.models import Album
+from usuario.models import Usuario
 
 
 # Views do Models Album
@@ -62,6 +63,25 @@ class AlbumCreateView(BaseCreateView):
     template_name = "portifolio/album/album_create.html"
     # inlines = []
     # form_modals = []
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Filtra as fotos para incluir apenas as do usuário logado
+        form.fields['fotos'].queryset = form.fields['fotos'].queryset.filter(
+            usuario=self.request.user.usuario,
+            deleted=False,
+            enabled=True
+        )
+        return form
+    
+    def form_valid(self, form):
+        # Converter request.user para uma instância de Usuario; 
+        # supondo que haja uma relação OneToOne entre os dois modelos:
+        usuario_instance = self.request.user.usuario  
+        # Caso não haja OneToOne, utilize outro critério, por exemplo:
+        usuario_instance = Usuario.objects.get(email=self.request.user.email)
+        
+        form.instance.usuario = usuario_instance
+        return super().form_valid(form)
 
 
 class AlbumUpdateView(BaseUpdateView):

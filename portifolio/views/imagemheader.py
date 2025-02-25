@@ -8,6 +8,7 @@ from core.views.base import (
 )
 from portifolio.forms.imagemheader import ImagemHeaderForm
 from portifolio.models import ImagemHeader
+from usuario.models import Usuario
 
 
 # Views do Models ImagemHeader
@@ -59,8 +60,22 @@ class ImagemHeaderCreateView(BaseCreateView):
     context_object_name = "imagemheader"
     success_url = "portifolio:imagemheader-list"
     template_name = "portifolio/imagemheader/imagemheader_create.html"
-    # inlines = []
-    # form_modals = []
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Filtra as fotos para incluir apenas as do usuário logado
+        form.fields['imagem'].queryset = form.fields['imagem'].queryset.filter(
+            usuario=self.request.user.usuario,
+            deleted=False,
+            enabled=True
+        )
+        return form
+
+    def form_valid(self, form):
+        usuario_instance = self.request.user.usuario  
+        usuario_instance = Usuario.objects.get(email=self.request.user.email)
+        form.instance.usuario = usuario_instance
+        return super().form_valid(form)
 
 
 class ImagemHeaderUpdateView(BaseUpdateView):

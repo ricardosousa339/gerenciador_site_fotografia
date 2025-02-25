@@ -33,9 +33,16 @@ class FotoListView(BaseListView):
         Returns:
             QuerySet
         """
+        qs = super(FotoListView, self).get_queryset()
+        # Se o usuário for um superusuário, retorna todos os registros.
+        if self.request.user.is_superuser:
+            return qs
+        # Caso contrário, filtra os registros associados ao usuário logado.
+        usuario_instance = self.request.user.usuario
+        return qs.filter(usuario=usuario_instance)
 
-        queryset = super(FotoListView, self).get_queryset()
-        return queryset
+        # queryset = super(FotoListView, self).get_queryset()
+        # return queryset
 
 
 class FotoDetailView(BaseDetailView):

@@ -6,5 +6,5 @@ class ImagemHeaderForm(BaseForm):
     """Form padrão para o model ImagemHeader"""
 
     class Meta:
-        exclude = ["deleted", "enabled"]
+        exclude = ["deleted", "enabled", "usuario"]
         model = ImagemHeader
