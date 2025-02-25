@@ -26,16 +26,21 @@ class ImagemHeaderListView(BaseListView):
         context = super(ImagemHeaderListView, self).get_context_data(**kwargs)
         return context
 
-    def get_queryset(self):
+def get_queryset(self):
         """Subscrevendo o queryset para
         filtrar os dados conforme o perfil logado
 
         Returns:
             QuerySet
         """
+        qs = super(ImagemHeaderListView, self).get_queryset()
+        # Se o usuário for um superusuário, retorna todos os registros.
+        if self.request.user.is_superuser:
+            return qs
+        # Caso contrário, filtra os registros associados ao usuário logado.
+        usuario_instance = self.request.user.usuario
+        return qs.filter(usuario=usuario_instance)
 
-        queryset = super(ImagemHeaderListView, self).get_queryset()
-        return queryset
 
 
 class ImagemHeaderDetailView(BaseDetailView):
@@ -64,15 +69,13 @@ class ImagemHeaderCreateView(BaseCreateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         # Filtra as fotos para incluir apenas as do usuário logado
-        form.fields['imagem'].queryset = form.fields['imagem'].queryset.filter(
-            usuario=self.request.user.usuario,
-            deleted=False,
-            enabled=True
+        form.fields["imagem"].queryset = form.fields["imagem"].queryset.filter(
+            usuario=self.request.user.usuario, deleted=False, enabled=True
         )
         return form
 
     def form_valid(self, form):
-        usuario_instance = self.request.user.usuario  
+        usuario_instance = self.request.user.usuario
         usuario_instance = Usuario.objects.get(email=self.request.user.email)
         form.instance.usuario = usuario_instance
         return super().form_valid(form)

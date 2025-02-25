@@ -69,12 +69,12 @@ class FotoCreateView(BaseCreateView):
     template_name = "portifolio/foto/foto_create.html"
 
     def form_valid(self, form):
-        # Converter request.user para uma instância de Usuario; 
+        # Converter request.user para uma instância de Usuario;
         # supondo que haja uma relação OneToOne entre os dois modelos:
-        usuario_instance = self.request.user.usuario  
+        usuario_instance = self.request.user.usuario
         # Caso não haja OneToOne, utilize outro critério, por exemplo:
         usuario_instance = Usuario.objects.get(email=self.request.user.email)
-        
+
         form.instance.usuario = usuario_instance
         return super().form_valid(form)
 

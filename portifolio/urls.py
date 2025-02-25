@@ -8,6 +8,14 @@ from portifolio.views.album import (
     AlbumRestoreView,
     AlbumUpdateView,
 )
+from portifolio.views.categoria import (
+    CategoriaCreateView,
+    CategoriaDeleteView,
+    CategoriaDetailView,
+    CategoriaListView,
+    CategoriaRestoreView,
+    CategoriaUpdateView,
+)
 from portifolio.views.foto import (
     FotoCreateView,
     FotoDeleteView,
@@ -106,5 +114,35 @@ urlpatterns += [
         "portifolio/imagemheader/restore/<uuid:pk>/",
         ImagemHeaderRestoreView.as_view(),
         name="imagemheader-restore",
+    ),
+]
+
+# URLs do Models Categoria
+urlpatterns += [
+    path("portifolio/categoria/", CategoriaListView.as_view(), name="categoria-list"),
+    path(
+        "portifolio/categoria/create/",
+        CategoriaCreateView.as_view(),
+        name="categoria-create",
+    ),
+    path(
+        "portifolio/categoria/<uuid:pk>/",
+        CategoriaDetailView.as_view(),
+        name="categoria-detail",
+    ),
+    path(
+        "portifolio/categoria/update/<uuid:pk>/",
+        CategoriaUpdateView.as_view(),
+        name="categoria-update",
+    ),
+    path(
+        "portifolio/categoria/delete/<uuid:pk>/",
+        CategoriaDeleteView.as_view(),
+        name="categoria-delete",
+    ),
+    path(
+        "portifolio/categoria/restore/<uuid:pk>/",
+        CategoriaRestoreView.as_view(),
+        name="categoria-restore",
     ),
 ]

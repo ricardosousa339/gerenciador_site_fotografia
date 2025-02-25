@@ -49,7 +49,9 @@ class AlbumDetailView(BaseDetailView):
 
     def get_context_data(self, **kwargs):
         context = super(AlbumDetailView, self).get_context_data(**kwargs)
-        context['fotos'] = self.object.fotos.all()  # Ajuste se o related_name for diferente
+        context["fotos"] = (
+            self.object.fotos.all()
+        )  # Ajuste se o related_name for diferente
         return context
 
 
@@ -61,31 +63,32 @@ class AlbumCreateView(BaseCreateView):
     context_object_name = "album"
     success_url = "portifolio:album-list"
     template_name = "portifolio/album/album_create.html"
+
     # inlines = []
     # form_modals = []
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         # Filtra as fotos para incluir apenas as do usuário logado
-        form.fields['fotos'].queryset = form.fields['fotos'].queryset.filter(
-            usuario=self.request.user.usuario,
-            deleted=False,
-            enabled=True
+        form.fields["fotos"].queryset = form.fields["fotos"].queryset.filter(
+            usuario=self.request.user.usuario, deleted=False, enabled=True
         )
 
-        form.fields['capa'].queryset = form.fields['capa'].queryset.filter(
-            usuario=self.request.user.usuario,
-            deleted=False,
-            enabled=True
+        form.fields["capa"].queryset = form.fields["capa"].queryset.filter(
+            usuario=self.request.user.usuario, deleted=False, enabled=True
+        )
+
+        form.fields["categoria"].queryset = form.fields["categoria"].queryset.filter(
+            usuario=self.request.user.usuario, deleted=False, enabled=True
         )
         return form
-    
+
     def form_valid(self, form):
-        # Converter request.user para uma instância de Usuario; 
+        # Converter request.user para uma instância de Usuario;
         # supondo que haja uma relação OneToOne entre os dois modelos:
-        usuario_instance = self.request.user.usuario  
+        usuario_instance = self.request.user.usuario
         # Caso não haja OneToOne, utilize outro critério, por exemplo:
         usuario_instance = Usuario.objects.get(email=self.request.user.email)
-        
+
         form.instance.usuario = usuario_instance
         return super().form_valid(form)
 

@@ -26,12 +26,18 @@ class Album(Base):
         "Foto",
         related_name='album'
     )
+    categoria = models.ForeignKey(
+        "Categoria",
+        on_delete=models.SET_NULL,
+        related_name='albums',
+        blank=True,
+        null=True
+    )
 
-    
     class Meta:
         verbose_name = "Álbum"
         verbose_name_plural = "Álbuns"
-        fields_display = ["titulo", "usuario", "url"]
+        fields_display = ["titulo", "url", "categoria"]
         # icon_model = "fas fa-user"
 
     def __str__(self):
@@ -87,3 +93,22 @@ class ImagemHeader(Base):
 
     def __str__(self):
         return self.imagem.nome 
+
+
+class Categoria(Base):
+    nome = models.CharField(max_length=255)
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='categorias'
+    )
+
+    
+    class Meta:
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
+        fields_display = ["nome"]
+        # icon_model = "fas fa-user"
+
+    def __str__(self):
+        return self.nome
