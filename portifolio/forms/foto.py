@@ -6,7 +6,7 @@ class FotoForm(BaseForm):
     """Form padrão para o model Foto"""
 
     class Meta:
-        exclude = ["deleted", "enabled"]
+        exclude = ["deleted", "enabled", "usuario"]
         model = Foto
 
 

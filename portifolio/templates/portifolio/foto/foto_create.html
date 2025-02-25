@@ -70,19 +70,13 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                             </div>
                         {% endif %}
                         {% if form.usuario in form.visible_fields %}
-                        <div class="form-group col-md-6">
-                            {{ form.usuario.label_tag }}
-                            {{ form.usuario.as_hidden }}
-
-                            <select name="usuario" class="form-control" disabled>
-                                <option value="{{ usuario }}">{{ usuario.nome }}</option>
-                            </select>
-                            <!-- {% if form.fk_beneficiario.help_text %}
-                                <small class="form-text text-muted">{{ form.fk_beneficiario.help_text }}</small>
-                            {% endif %} -->
-                            <div class="invalid-feedback">{{ form.usuario.errors }}</div>
-                        </div>
-                    {% endif %}
+                            <div class="form-group col-md-6">
+                                {{ form.usuario.label_tag }}<span class="text-muted ml-1">(Opcional)</span>
+                                {{ form.usuario }}
+                                {% if form.usuario.help_text %}<small class="form-text text-muted">{{ form.usuario.help_text }}</small>{% endif %}
+                                <div class="invalid-feedback">{{ form.usuario.errors }}</div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 {% block content_inline %}

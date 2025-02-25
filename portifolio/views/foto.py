@@ -60,16 +60,16 @@ class FotoCreateView(BaseCreateView):
     context_object_name = "foto"
     success_url = "portifolio:foto-list"
     template_name = "portifolio/foto/foto_create.html"
-    # inlines = []
-    # form_modals = []
 
-    def get_context_data(self, **kwargs):
-        usuario = Usuario.objects.get(django_user=self.request.user)
-        context = super(FotoCreateView, self).get_context_data(**kwargs)
-        context["usuario"] = usuario
-        return context
-    
-
+    def form_valid(self, form):
+        # Converter request.user para uma instância de Usuario; 
+        # supondo que haja uma relação OneToOne entre os dois modelos:
+        usuario_instance = self.request.user.usuario  
+        # Caso não haja OneToOne, utilize outro critério, por exemplo:
+        usuario_instance = Usuario.objects.get(email=self.request.user.email)
+        
+        form.instance.usuario = usuario_instance
+        return super().form_valid(form)
 
 
 class FotoUpdateView(BaseUpdateView):
