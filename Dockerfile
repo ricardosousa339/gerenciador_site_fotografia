@@ -33,6 +33,7 @@ FROM python:3.9.13-slim
 
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/gerenciador_de_site_de_fotografia
+ENV PYTHONPATH=/app
 
 RUN mkdir -p $APP_HOME
 

@@ -32,7 +32,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_HOST: ${DB_HOST}
       DB_PASSWORD: ${DB_PASSWORD}
-      DB_ENGINE: ${DB_ENGINER}
+      DB_ENGINE: ${DB_ENGINE}
       DB_USER: ${DB_USER}
       DB_PORT: ${DB_PORT}
       SECRET_KEY: ${SECRET_KEY}
@@ -56,12 +56,15 @@ services:
       ORGANIZATION_FLUTTER_NAME: ${ORGANIZATION_FLUTTER_NAME}
     command: [ "gunicorn", "-b", "0.0.0.0:${APPLICATION_PORT}", "--workers=${WORKERS}","base.wsgi:application", "--name=gerenciador_de_site_de_fotografia" ]
     networks:
-      - intranet
+      intranet:
+        aliases:
+          - web
+      
       # uncomment only if u will use a containerd database
       #- db
     volumes:
-      - volume-static:/home/app/gerenciador_de_site_de_fotografia/static
-      - volume-media:/home/app/gerenciador_de_site_de_fotografia/media
+      - static_data:/home/app/gerenciador_de_site_de_fotografia/static
+      - media_data:/home/app/gerenciador_de_site_de_fotografia/media
     expose:
       - ${APPLICATION_PORT}
     # uncomment only if u will use a containerd database
@@ -84,12 +87,10 @@ services:
       - "80:80"
     depends_on:
       - web
-    configs:
-      - source: ngx_config
-        target: /etc/nginx/conf.d/default.conf
     volumes:
-      - volume-static:/home/app/gerenciador_de_site_de_fotografia/static
-      - volume-media:/home/app/gerenciador_de_site_de_fotografia/media
+      - static_data:/home/app/gerenciador_de_site_de_fotografia/static
+      - media_data:/home/app/gerenciador_de_site_de_fotografia/media
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf   # updated file name
     labels:
       - com.host.description=agtec_core_project
 
@@ -106,12 +107,10 @@ volumes:
   #   type: local
   #   name: gerenciador_de_site_de_fotografia_db
   media_data:
-    type: local
     name: gerenciador_de_site_de_fotografia_media
   static_data:
-    type: local
     name: gerenciador_de_site_de_fotografia_static
 
 configs:
   ngx_config:
-    file: $PWD/nginx.config
+    file: $PWD/nginx.conf

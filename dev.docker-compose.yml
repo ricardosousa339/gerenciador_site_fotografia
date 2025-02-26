@@ -17,9 +17,9 @@ services:
     networks:
       - db
     expose:
-      - 5432
+      - 5433
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   pgadmin4:
     image: dpage/pgadmin4
