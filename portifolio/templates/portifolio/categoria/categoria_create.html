@@ -69,6 +69,14 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                                 <div class="invalid-feedback">{{ form.usuario.errors }}</div>
                             </div>
                         {% endif %}
+                        {% if form.icone in form.visible_fields %}
+                        <div class="form-group col-md-6">
+                            {{ form.icone.label_tag }}
+                            {{ form.icone }}
+                            {% if form.icone.help_text %}<small class="form-text text-muted">{{ form.icone.help_text }}</small>{% endif %}
+                            <div class="invalid-feedback">{{ form.icone.errors }}</div>
+                        </div>
+                    {% endif %}
                     </div>
                 </div>
                 {% block content_inline %}

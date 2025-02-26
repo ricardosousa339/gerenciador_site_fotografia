@@ -21,7 +21,7 @@ class CategoriaViewAPI(ModelViewSet):
     # TODO: Enviar apenas as categorias do usuário logado (as outras coisas também)
     authentication_classes = [JWTAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
-    queryset = Categoria.objects.select_related().all()
+    queryset = Categoria.objects.select_related().filter(deleted=False)
     serializer_class = CategoriaSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = []
