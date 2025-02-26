@@ -8,6 +8,10 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
 {% block title %}
     Listagem Portifolio
 {% endblock title %}
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+{% endblock extra_js %}
 {% block title_modulo %}
     <h4 class="font-weight-bold m-1">Portifolio - {{ model_name }}</h4>
 {% endblock title_modulo %}
@@ -23,8 +27,8 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
         <thead>
             <tr>
                 <th class="table-actions" scope="col">Ações</th>
-                <th></th>
                 <th>Titulo</th>
+                <th>Categoria</th>
                 <th scope="col" class="table-delete"></th>
             </tr>
         </thead>
@@ -51,8 +55,8 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                             </a>
                         {% endif %}
                     </td>
-                    <td></td>
                     <td>{{ item.titulo }}</td>
+                    <td><i data-lucide="{{ item.categoria.icone }}"></i>  {{item.categoria}}</td>
                     <td class="text-center">
                         {% if perms.portifolio.delete_album %}
                             {% if item.deleted %}
