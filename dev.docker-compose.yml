@@ -30,7 +30,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USER}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     volumes:
-      - pgadmin4:/var/lib/pgadmin
+      - pgadmin4_data:/var/lib/pgadmin
     expose:
       - 80
     ports:
@@ -51,7 +51,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_HOST: ${DB_HOST}
       DB_PASSWORD: ${DB_PASSWORD}
-      DB_ENGINE: ${DB_ENGINER}
+      DB_ENGINE: ${DB_ENGINE}
       DB_USER: ${DB_USER}
       DB_PORT: ${DB_PORT}
       SECRET_KEY: ${SECRET_KEY}
@@ -73,6 +73,8 @@ services:
       CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS}
       ORGANIZATION_NAME: ${ORGANIZATION_NAME}
       ORGANIZATION_FLUTTER_NAME: ${ORGANIZATION_FLUTTER_NAME}
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     networks:
       - intranet
       - db
@@ -97,15 +99,11 @@ networks:
 
 volumes:
   db_data:
-    type: local
     name: gerenciador_de_site_de_fotografia_db_dev
   pgadmin4_data:
-    type: local
     name: gerenciador_de_site_de_fotografia_pg4_dev
   media_data:
-    type: local
     name: gerenciador_de_site_de_fotografia_media_dev
   static_data:
-    type: local
     name: gerenciador_de_site_de_fotografia_static_dev
 
