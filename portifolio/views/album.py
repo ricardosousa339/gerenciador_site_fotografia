@@ -68,18 +68,23 @@ class AlbumCreateView(BaseCreateView):
     # form_modals = []
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        # Filtra as fotos para incluir apenas as do usuário logado
-        form.fields["fotos"].queryset = form.fields["fotos"].queryset.filter(
-            usuario=self.request.user.usuario, deleted=False, enabled=True
-        )
+        usuario = getattr(self.request.user, "usuario", None)
+        if usuario:
+            form.fields["fotos"].queryset = form.fields["fotos"].queryset.filter(
+                usuario=usuario, deleted=False, enabled=True
+            )
+            form.fields["capa"].queryset = form.fields["capa"].queryset.filter(
+                usuario=usuario, deleted=False, enabled=True
+            )
+            form.fields["categoria"].queryset = form.fields["categoria"].queryset.filter(
+                usuario=usuario, deleted=False, enabled=True
+            )
+        else:
+            # Se o usuário logado não tiver um perfil de Usuario associado, retorna queryset vazio
+            form.fields["fotos"].queryset = form.fields["fotos"].queryset.none()
+            form.fields["capa"].queryset = form.fields["capa"].queryset.none()
+            form.fields["categoria"].queryset = form.fields["categoria"].queryset.none()
 
-        form.fields["capa"].queryset = form.fields["capa"].queryset.filter(
-            usuario=self.request.user.usuario, deleted=False, enabled=True
-        )
-
-        form.fields["categoria"].queryset = form.fields["categoria"].queryset.filter(
-            usuario=self.request.user.usuario, deleted=False, enabled=True
-        )
         return form
 
     def form_valid(self, form):

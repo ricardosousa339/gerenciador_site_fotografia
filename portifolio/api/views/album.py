@@ -4,6 +4,8 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from django_filters.rest_framework import DjangoFilterBackend 
+
 
 from portifolio.api.serializers.album import AlbumSerializer
 from portifolio.models import Album
@@ -22,10 +24,13 @@ class AlbumViewAPI(ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Album.objects.select_related().all()
     serializer_class = AlbumSerializer
-    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend]
     search_fields = []
     ordering_fields = []
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(usuario=self.request.user.usuario)
 
 class AlbumReadOnlyAPI(OptimizedQuerySetMixin, ReadOnlyModelViewSet):
     """Classe para gerenciar as requisições da API GET com apenas leitura
@@ -43,3 +48,6 @@ class AlbumReadOnlyAPI(OptimizedQuerySetMixin, ReadOnlyModelViewSet):
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = []
     ordering_fields = []
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(usuario=self.request.user.usuario)
