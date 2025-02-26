@@ -164,7 +164,11 @@ class FatoSobre(Base):
     )
     titulo = models.CharField(max_length=255)
     subtitulo = models.CharField(max_length=255)
-
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='fatos_sobre',
+    )
     class Meta:
         verbose_name = "Fato Sobre"
         verbose_name_plural = "Fato Sobre"
