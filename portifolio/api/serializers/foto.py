@@ -10,3 +10,4 @@ class FotoSerializer(FieldsListSerializerMixin, ModelSerializer):
     class Meta:
         model = Foto
         exclude = ["deleted", "enabled"]
+        
