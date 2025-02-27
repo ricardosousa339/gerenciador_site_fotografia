@@ -39,7 +39,10 @@ jobs:
           # Database
           DB_ENGINE: django.db.backends.sqlite3
           DB_NAME: db.sqlite3
-          
+          DB_USER: ""
+          DB_PASSWORD: ""
+          DB_HOST: ""
+          DB_PORT: ""
           # Github Core
           GITHUB_API_CORE_URL: "https://api.github.com/repos/AgtecPalmas/AgtecCore"
           
