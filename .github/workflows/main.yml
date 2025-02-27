@@ -75,4 +75,4 @@ jobs:
           url: 'https://ricardoh.pythonanywhere.com/portifolio/webhook/deploy/'
           method: 'POST'
           customHeaders: '{"X-Secret-Token": "${{ secrets.DEPLOY_TOKEN }}"}'
-          timeout: 15000
+          timeout: 50000
