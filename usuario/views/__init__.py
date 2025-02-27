@@ -1,1 +1,8 @@
-from .usuario import UsuarioCreateView, UsuarioDeleteView, UsuarioDetailView, UsuarioListView, UsuarioUpdateView
+from .usuario import (
+    UsuarioCreateView,
+    UsuarioDeleteView,
+    UsuarioDetailView,
+    UsuarioIndexTemplateView,
+    UsuarioListView,
+    UsuarioUpdateView,
+)
