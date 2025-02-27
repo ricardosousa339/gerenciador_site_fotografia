@@ -38,7 +38,7 @@ class Album(Base):
     )
 
     class Meta:
-        verbose_name = "Álbum"
+        verbose_name = "Teste"
         verbose_name_plural = "Álbuns"
         fields_display = ["titulo", "url", "categoria"]
         # icon_model = "fas fa-user"
