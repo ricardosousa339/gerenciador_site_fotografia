@@ -444,3 +444,4 @@ wrapt==1.16.0
 zopfli==0.2.3
     # via fonttools
 django-cors-headers
+dj-rest-auth==2.1.9
