@@ -45,21 +45,20 @@ jobs:
           
           APPLICATION_PORT: "8000"
           WORKERS: "3"
-          
-          DEFAULT_FROM_EMAIL:''
-          EMAIL_HOST:''
-          EMAIL_HOST_USER:''
-          EMAIL_HOST_PASSWORD:''
-          EMAIL_USE_TLS:''
-          EMAIL_TIMEOUT:10
+          DEFAULT_FROM_EMAIL: ""
+          EMAIL_HOST: ''
+          EMAIL_HOST_USER: ''
+          EMAIL_HOST_PASSWORD: ''
+          EMAIL_USE_TLS: ''
+          EMAIL_TIMEOUT: "10"
           
           IP_ADDRESS_DEFAULT_FLUTTER: '8.8.8.8'
           
-          ORGANIZATION_NAME:Agtec
-          ORGANIZATION_FLUTTER_NAME:ricardomachado.me
-          FLUTTER_API_USER_DEV:'admin'
-          FLUTTER_API_PASSWORD_DEV:'asdf@1234'
-          FLUTTER_API_PATH:'http://localhost:8080/'
+          ORGANIZATION_NAME: Agtec
+          ORGANIZATION_FLUTTER_NAME: ricardomachado.me
+          FLUTTER_API_USER_DEV: 'admin'
+          FLUTTER_API_PASSWORD_DEV: 'asdf@1234'
+          FLUTTER_API_PATH: 'http://localhost:8080/'
         run: |
           python manage.py test
           
