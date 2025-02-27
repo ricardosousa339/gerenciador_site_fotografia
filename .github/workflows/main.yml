@@ -56,7 +56,7 @@ jobs:
           EMAIL_TIMEOUT: "10"
           
           IP_ADDRESS_DEFAULT_FLUTTER: '8.8.8.8'
-          
+          ELASTIC_APM_SERVER_URL: ""
           ORGANIZATION_NAME: Agtec
           ORGANIZATION_FLUTTER_NAME: ricardomachado.me
           FLUTTER_API_USER_DEV: 'admin'
