@@ -1,5 +1,29 @@
-# views.py
+
 from base import settings
+"""
+Webhook endpoint for automated deployment via GitHub webhooks.
+This view handles incoming webhook requests from GitHub to automatically deploy updates
+to a Python Anywhere hosted Django application. It performs the following steps:
+1. Validates the incoming request using a secret token
+2. Pulls the latest changes from the git repository
+3. Updates dependencies via pip
+4. Triggers a reload of the WSGI application
+Args:
+    request: The HTTP request object containing webhook data
+Returns:
+    HttpResponse: Response indicating success (200) or failure (403, 500)
+        - 200: Successful deployment
+        - 403: Unauthorized access (invalid token)
+        - 500: Deployment error
+Security:
+    - Uses CSRF exemption as GitHub webhooks don't support CSRF tokens
+    - Validates requests using a secret token in X-Secret-Token header
+    - Token must match WEBHOOK_DEPLOY_TOKEN in settings
+Dependencies:
+    - GitPython for repository operations
+    - Django for HTTP handling
+    - Settings module for configuration
+"""
 import git
 import os
 from django.http import HttpResponse
