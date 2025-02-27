@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     # Apps do projeto
 ]
 
+if 'test' not in sys.argv:
+    INSTALLED_APPS += ['debug_toolbar']
+
 FASTAPI_APPS = []
 
 # Apps que não devem ser renderizadas no menu
