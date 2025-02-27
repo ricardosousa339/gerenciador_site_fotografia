@@ -445,3 +445,4 @@ zopfli==0.2.3
     # via fonttools
 django-cors-headers
 dj-rest-auth==2.1.9
+GitPython==3.1.31
