@@ -1,1 +1,1 @@
-from .usuario import UsuarioCreateView
+from .usuario import UsuarioCreateView, UsuarioDeleteView, UsuarioDetailView, UsuarioListView, UsuarioUpdateView
