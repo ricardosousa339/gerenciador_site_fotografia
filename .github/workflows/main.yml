@@ -24,7 +24,7 @@ jobs:
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ALLOWED_HOSTS: "localhost,127.0.0.1"
-          DEBUG: "True"
+          DEBUG: "False"
           CSRF_TRUSTED_ORIGINS: "https://*.localhost"
           API_PATH: "http://localhost:8080/"
           HORAS_SEM_ATENDIMENTO: "19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 12"
