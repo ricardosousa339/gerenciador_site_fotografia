@@ -141,3 +141,4 @@ wrapt==1.16.0
 django-cors-headers
 django-extensions
 django-debug-toolbar
+GitPython==3.1.31
