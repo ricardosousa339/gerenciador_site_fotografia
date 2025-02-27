@@ -142,3 +142,4 @@ django-cors-headers
 django-extensions
 django-debug-toolbar
 GitPython==3.1.31
+mysqlclient
