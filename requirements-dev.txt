@@ -443,3 +443,4 @@ wrapt==1.16.0
     #   elastic-apm
 zopfli==0.2.3
     # via fonttools
+django-cors-headers

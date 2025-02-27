@@ -138,3 +138,6 @@ urllib3==2.2.1
     #   sentry-sdk
 wrapt==1.16.0
     # via elastic-apm
+django-cors-headers
+django-extensions
+django-debug-toolbar
