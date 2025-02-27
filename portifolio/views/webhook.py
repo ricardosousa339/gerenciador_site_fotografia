@@ -21,7 +21,7 @@ def webhook_deploy(request):
             f.write(str(repo.git.execute(['pip', 'install', '-r', 'requirements.txt'])))
         
         # Recarregamento do aplicativo
-        wsgi_path = 'var/www/ricardoh_pythonanywhere_com_wsgi.py'
+        wsgi_path = '/var/www/ricardoh_pythonanywhere_com_wsgi.py'
         os.utime(wsgi_path, None)
         
         return HttpResponse('Deploy realizado com sucesso', status=200)
