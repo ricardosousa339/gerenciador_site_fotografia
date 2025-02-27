@@ -21,6 +21,8 @@ jobs:
           pip install -r requirements.txt
           
       - name: Executar Testes
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
           python manage.py test
           
@@ -31,6 +33,6 @@ jobs:
       - name: Disparar Deploy
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://ricardoh.pythonanywhere.com/webhook/deploy/'
+          url: 'https://ricardoh.pythonanywhere.com/portifolio/webhook/deploy/'
           method: 'POST'
           customHeaders: '{"X-Secret-Token": "${{ secrets.DEPLOY_TOKEN }}"}'
