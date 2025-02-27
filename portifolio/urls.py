@@ -307,6 +307,6 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('portifolio/webhook/deploy/', webhook_deploy, name='deploy-webhook'),
+    path('webhook/deploy/', webhook_deploy, name='deploy-webhook'),
 ]
 
