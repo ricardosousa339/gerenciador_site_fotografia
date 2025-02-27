@@ -26,4 +26,4 @@ def webhook_deploy(request):
         
         return HttpResponse('Deploy realizado com sucesso', status=200)
     except Exception as e:
-        return HttpResponse(f'Erro: {str(e)}', status=500)
+        return HttpResponse(f'Erro no deploy: {e}', status=500)
