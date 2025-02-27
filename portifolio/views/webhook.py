@@ -1,4 +1,5 @@
 # views.py
+from base import settings
 import git
 import os
 from django.http import HttpResponse
@@ -7,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def webhook_deploy(request):
     # Validação do token de segurança
-    if request.headers.get('X-Secret-Token') != os.getenv('DEPLOY_TOKEN'):
+    if request.headers.get('X-Secret-Token') != settings.WEBHOOK_SECRET_TOKEN:
         return HttpResponse('Acesso não autorizado', status=403)
     
     try:
