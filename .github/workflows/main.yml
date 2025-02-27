@@ -72,7 +72,7 @@ jobs:
       - name: Disparar Deploy
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://ricardoh.pythonanywhere.com/core/webhook/deploy/'
+          url: 'https://ricardoh.pythonanywhere.com/core/portifolio/webhook/deploy/'
           method: 'POST'
           customHeaders: '{"X-Secret-Token": "${{ secrets.DEPLOY_TOKEN }}"}'
           timeout: 50000
