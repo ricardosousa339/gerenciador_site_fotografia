@@ -62,6 +62,7 @@ jobs:
           FLUTTER_API_USER_DEV: 'admin'
           FLUTTER_API_PASSWORD_DEV: 'asdf@1234'
           FLUTTER_API_PATH: 'http://localhost:8080/'
+          DEPLOY_TOKEN: ''
         run: |
           python manage.py test
           
