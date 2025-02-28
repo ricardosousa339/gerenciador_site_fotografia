@@ -282,13 +282,22 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 EMAIL_TIMEOUT = config("EMAIL_TIMEOUT", default=10, cast=int)
 
-FIREBASE_CREDENTIALS = os.path.join(BASE_DIR, 'firebase-key.json')
-DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
-GS_BUCKET_NAME = config('GS_BUCKET_NAME')
-GS_PROJECT_ID = config('GS_PROJECT_ID')
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    FIREBASE_CREDENTIALS
-)
+# Configuração de armazenamento condicional
+USE_FIREBASE_STORAGE = config('USE_FIREBASE_STORAGE', default=not DEBUG, cast=bool)
+
+if USE_FIREBASE_STORAGE:
+    # Firebase Storage para produção
+    FIREBASE_CREDENTIALS = os.path.join(BASE_DIR, 'firebase-key.json')
+    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    GS_BUCKET_NAME = config('GS_BUCKET_NAME')
+    GS_PROJECT_ID = config('GS_PROJECT_ID')
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+        FIREBASE_CREDENTIALS
+    )
+else:
+    # Armazenamento local para desenvolvimento e testes
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    # Os arquivos serão armazenados na pasta MEDIA_ROOT configurada anteriormente
 
 # Swagger e Redoc
 SPECTACULAR_SETTINGS = {
