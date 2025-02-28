@@ -54,7 +54,7 @@ jobs:
           EMAIL_HOST_PASSWORD: ''
           EMAIL_USE_TLS: ''
           EMAIL_TIMEOUT: "10"
-          FS_CREDENTIALS: 'firebase-key-mock.json'
+          FS_CREDENTIALS: ''
           IP_ADDRESS_DEFAULT_FLUTTER: '8.8.8.8'
           ELASTIC_APM_SERVER_URL: ""
           ORGANIZATION_NAME: Agtec
