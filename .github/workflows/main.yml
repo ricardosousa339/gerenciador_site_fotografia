@@ -63,6 +63,9 @@ jobs:
           FLUTTER_API_PASSWORD_DEV: 'asdf@1234'
           FLUTTER_API_PATH: 'http://localhost:8080/'
           DEPLOY_TOKEN: ''
+          DEFAULT_FILE_STORAGE: 'storages.backends.gcloud.GoogleCloudStorage'
+          GS_BUCKET_NAME: 'criador-de-portifolio.firebasestorage.app'
+          GS_PROJECT_ID: 'criador-de-portifolio'
         run: |
           python manage.py test
           
