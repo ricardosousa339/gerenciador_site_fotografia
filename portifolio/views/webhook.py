@@ -1,10 +1,5 @@
-import git
-import os
-import subprocess
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from base import settings
 
+from base import settings
 """
 Webhook endpoint for automated deployment via GitHub webhooks.
 This view handles incoming webhook requests from GitHub to automatically deploy updates
@@ -29,6 +24,10 @@ Dependencies:
     - Django for HTTP handling
     - Settings module for configuration
 """
+import git
+import os
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def webhook_deploy(request):
@@ -37,26 +36,13 @@ def webhook_deploy(request):
         return HttpResponse('Acesso não autorizado', status=403)
     
     try:
-        repo_path = '/home/ricardoh/ricardoh.pythonanywhere.com'
-        repo = git.Repo(repo_path)
+        repo = git.Repo('/home/ricardoh/ricardoh.pythonanywhere.com')
         origin = repo.remotes.origin
         origin.pull('master')
         
-        # Atualização de dependências com subprocess
-        requirements_path = os.path.join(repo_path, 'requirements.txt')
-        pip_result = subprocess.run(
-            ['pip', 'install', '-r', requirements_path],
-            capture_output=True, 
-            text=True
-        )
-        
-        # Log do resultado
+        # Atualização de dependências
         with open('/tmp/update.log', 'w') as f:
-            f.write(f"PIP STDOUT:\n{pip_result.stdout}\n\nPIP STDERR:\n{pip_result.stderr}")
-        
-        # Verificar se a instalação foi bem sucedida
-        if pip_result.returncode != 0:
-            raise Exception(f"Falha na instalação de dependências: {pip_result.stderr}")
+            f.write(str(repo.git.execute(['pip', 'install', '-r', 'requirements.txt'])))
         
         # Recarregamento do aplicativo
         wsgi_path = '/var/www/ricardoh_pythonanywhere_com_wsgi.py'
