@@ -139,7 +139,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-PROJECT_NAME = "Gerenciador de Site de Fotografia"
+PROJECT_NAME = "Gerenciador de Portifólio"
 
 # Lista de apps que devem ser mapeadas para gerar a documentação via Sphinxs
 DOC_APPS = ["usuario", "configuracao_core"]
@@ -197,7 +197,7 @@ SIMPLE_JWT = {
 }
 
 # ÁREA PARA CONFIGURAÇÃO DAS VARIÁVEIS DO PROJETO
-SYSTEM_NAME = "Gerenciador De Site De Fotografia "
+SYSTEM_NAME = "Gerenciador De Portifólio "
 
 LOGIN_URL = "/core/login"
 LOGIN_REDIRECT_URL = "/core"
@@ -319,6 +319,17 @@ else:
     # Armazenamento local para desenvolvimento e testes
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
     # Os arquivos serão armazenados na pasta MEDIA_ROOT configurada anteriormente
+FIREBASE_CREDENTIALS = os.path.join(BASE_DIR, 'firebase-key.json')
+
+# Condiciona o carregamento das credenciais do Google Cloud
+if os.path.exists(FIREBASE_CREDENTIALS):
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(FIREBASE_CREDENTIALS)
+else:
+    GS_CREDENTIALS = None  # Ou configure um valor padrão, se necessário
+
+DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE', default='django.core.files.storage.FileSystemStorage')
+GS_BUCKET_NAME = config('GS_BUCKET_NAME', default='')
+GS_PROJECT_ID = config('GS_PROJECT_ID', default='seu-projeto-id-padrao')
 
 # Swagger e Redoc
 SPECTACULAR_SETTINGS = {

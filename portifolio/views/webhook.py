@@ -36,7 +36,7 @@ def webhook_deploy(request):
         return HttpResponse('Acesso não autorizado', status=403)
     
     try:
-        repo = git.Repo('/home/ricardoh/ricardoh.pythonanywhere.com')
+        repo = git.Repo('/home/criadordeportifolio/gerenciador_site_fotografia')
         origin = repo.remotes.origin
         origin.pull('master')
         
@@ -45,7 +45,7 @@ def webhook_deploy(request):
             f.write(str(repo.git.execute(['pip', 'install', '-r', 'requirements.txt'])))
         
         # Recarregamento do aplicativo
-        wsgi_path = '/var/www/ricardoh_pythonanywhere_com_wsgi.py'
+        wsgi_path = '/var/www/gerencia_ricardomachado_me_wsgi.py'
         os.utime(wsgi_path, None)
         
         return HttpResponse('Deploy realizado com sucesso', status=200)
