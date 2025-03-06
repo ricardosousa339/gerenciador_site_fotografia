@@ -1,6 +1,6 @@
-# Projeto Gerenciador de Site de Fotografia
+# Projeto Gerenciador de Portifólio
 
-    Gerenciador de Site de Fotografia
+    Gerenciador de Portifólio
 
 ## Cliente
 
