@@ -300,3 +300,4 @@ modules.xml
 /gerenciador_de_site_de_fotografia/.idea/
 bkp/
 /static/
+firebase-key.json

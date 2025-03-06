@@ -6,7 +6,7 @@ import sentry_sdk
 from decouple import Csv, config
 from django.contrib.messages import constants as messages
 from sentry_sdk.integrations.django import DjangoIntegration
-
+from google.oauth2 import service_account
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "corsheaders",
     # Apps do projeto
 ]
+
 
 FASTAPI_APPS = []
 
@@ -272,7 +273,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Copyright
 COPYRIGHT = "Mateus Machado"
-
+WEBHOOK_DEPLOY_TOKEN = config("DEPLOY_TOKEN")
 # Emails
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 EMAIL_HOST = config("EMAIL_HOST")
@@ -280,6 +281,14 @@ EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 EMAIL_TIMEOUT = config("EMAIL_TIMEOUT", default=10, cast=int)
+
+FIREBASE_CREDENTIALS = os.path.join(BASE_DIR, 'firebase-key.json')
+DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
+GS_BUCKET_NAME = config('GS_BUCKET_NAME')
+GS_PROJECT_ID = config('GS_PROJECT_ID')
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    FIREBASE_CREDENTIALS
+)
 
 # Swagger e Redoc
 SPECTACULAR_SETTINGS = {

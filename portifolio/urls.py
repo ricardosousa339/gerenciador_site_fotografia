@@ -65,6 +65,7 @@ from portifolio.views.secaosobre import (
     SecaoSobreRestoreView,
     SecaoSobreUpdateView,
 )
+from portifolio.views.webhook import webhook_deploy
 
 app_name = "portifolio"
 urlpatterns = [
@@ -304,3 +305,8 @@ urlpatterns += [
         name="parceiros-restore",
     ),
 ]
+
+urlpatterns += [
+    path('portifolio/webhook/deploy/', webhook_deploy, name='deploy-webhook'),
+]
+
