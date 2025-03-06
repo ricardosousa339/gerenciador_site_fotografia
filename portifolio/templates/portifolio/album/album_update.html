@@ -118,6 +118,14 @@ Delete (Deletar um novo registro via API)
                                 <div class="invalid-feedback">{{ form.fotos.errors }}</div>
                             </div>
                         {% endif %}
+                        {% if form.categoria in form.visible_fields %}
+                        <div class="form-group col-md-6">
+                            {{ form.categoria.label_tag }}
+                            {{ form.categoria }}
+                            {% if form.categoria.help_text %}<small class="form-text text-muted">{{ form.categoria.help_text }}</small>{% endif %}
+                            <div class="invalid-feedback">{{ form.categoria.errors }}</div>
+                        </div>
+                    {% endif %}
                     </div>
                 </div>
                 {% block content_inline %}
