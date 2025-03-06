@@ -36,7 +36,7 @@ def webhook_deploy(request):
         return HttpResponse('Acesso não autorizado', status=403)
     
     try:
-        repo = git.Repo('/home/ricardoh/ricardoh.pythonanywhere.com')
+        repo = git.Repo('/home/criadordeportifolio/gerenciador_site_fotografia')
         origin = repo.remotes.origin
         origin.pull('master')
         
