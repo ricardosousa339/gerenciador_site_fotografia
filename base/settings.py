@@ -282,6 +282,36 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 EMAIL_TIMEOUT = config("EMAIL_TIMEOUT", default=10, cast=int)
 
+# Configuração de armazenamento condicional
+# Detecta se estamos rodando testes
+RUNNING_TESTS = 'test' in sys.argv
+
+# Force local storage for tests, otherwise use config
+USE_FIREBASE_STORAGE = False if RUNNING_TESTS else config('USE_FIREBASE_STORAGE', default=not DEBUG, cast=bool)
+
+if USE_FIREBASE_STORAGE:
+    # Firebase Storage para produção
+    FIREBASE_CREDENTIALS = os.path.join(BASE_DIR, 'firebase-key.json')
+    # Verificar se o arquivo existe antes de tentar usá-lo
+    if os.path.exists(FIREBASE_CREDENTIALS):
+        DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+        GS_BUCKET_NAME = config('GS_BUCKET_NAME')
+        GS_PROJECT_ID = config('GS_PROJECT_ID')
+        GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+            FIREBASE_CREDENTIALS
+        )
+    else:
+        # Fallback para storage local se o arquivo de credenciais não existir
+        DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+        import warnings
+        warnings.warn(
+            f"Firebase credentials file not found at {FIREBASE_CREDENTIALS}. "
+            "Using local file storage instead."
+        )
+else:
+    # Armazenamento local para desenvolvimento e testes
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    # Os arquivos serão armazenados na pasta MEDIA_ROOT configurada anteriormente
 FIREBASE_CREDENTIALS = os.path.join(BASE_DIR, 'firebase-key.json')
 
 # Condiciona o carregamento das credenciais do Google Cloud

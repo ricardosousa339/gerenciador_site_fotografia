@@ -1,33 +1,82 @@
-name: CI
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches: [master]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v3
-
-      - name: Configurar Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build da imagem Docker
-        run: docker build -t gerenciador_de_site_de_fotografia:latest .
-
-      - name: Subir containers com docker-compose
-        run: docker-compose -f docker-compose.yml up -d
-
-      - name: Executar migrações
-        run: docker exec web_gerenciador_de_site_de_fotografia python manage.py migrate
-
-      - name: Executar testes com pytest
-        run: docker exec web_gerenciador_de_site_de_fotografia pytest
-
-      - name: Parar e remover containers
-        run: docker-compose -f docker-compose.yml down
+      - uses: actions/checkout@v4
+      
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Instalar Dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Executar Testes
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ALLOWED_HOSTS: "localhost,127.0.0.1"
+          DEBUG: "False"
+          CSRF_TRUSTED_ORIGINS: "https://*.localhost"
+          API_PATH: "http://localhost:8080/"
+          HORAS_SEM_ATENDIMENTO: "19, 20, 21, 22, 23, 0, 1, 2, 3, 4, 5, 6, 7, 12"
+          DIAS_DA_SEMANA: "0, 1, 2, 3, 4"
+          SENHA_PADRAO: "senha_padrao_deve_ser_mudada"
+          
+          # Ambiente
+          ENVIRONMENT: "desenvolvimento"
+          
+          SENTRY_DNS: ''
+          
+          # Database
+          DB_ENGINE: django.db.backends.sqlite3
+          DB_NAME: db.sqlite3
+          DB_USER: ""
+          DB_PASSWORD: ""
+          DB_HOST: ""
+          DB_PORT: ""
+          # Github Core
+          GITHUB_API_CORE_URL: "https://api.github.com/repos/AgtecPalmas/AgtecCore"
+          
+          APPLICATION_PORT: "8000"
+          WORKERS: "3"
+          DEFAULT_FROM_EMAIL: ""
+          EMAIL_HOST: ''
+          EMAIL_HOST_USER: ''
+          EMAIL_HOST_PASSWORD: ''
+          EMAIL_USE_TLS: ''
+          EMAIL_TIMEOUT: "10"
+          FS_CREDENTIALS: ''
+          IP_ADDRESS_DEFAULT_FLUTTER: '8.8.8.8'
+          ELASTIC_APM_SERVER_URL: ""
+          ORGANIZATION_NAME: Agtec
+          ORGANIZATION_FLUTTER_NAME: ricardomachado.me
+          FLUTTER_API_USER_DEV: 'admin'
+          FLUTTER_API_PASSWORD_DEV: 'asdf@1234'
+          FLUTTER_API_PATH: 'http://localhost:8080/'
+          DEPLOY_TOKEN: ''
+          DEFAULT_FILE_STORAGE: 'storages.backends.gcloud.GoogleCloudStorage'
+          GS_BUCKET_NAME: 'criador-de-portifolio.firebasestorage.app'
+          GS_PROJECT_ID: 'criador-de-portifolio'
+        run: |
+          python manage.py test
+          
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar Deploy
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://ricardoh.pythonanywhere.com/core/portifolio/webhook/deploy/'
+          method: 'POST'
+          customHeaders: '{"X-Secret-Token": "${{ secrets.DEPLOY_TOKEN }}"}'
+          timeout: 50000
