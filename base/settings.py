@@ -131,7 +131,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-PROJECT_NAME = "Gerenciador de Site de Fotografia"
+PROJECT_NAME = "Gerenciador de Portifólio"
 
 # Lista de apps que devem ser mapeadas para gerar a documentação via Sphinxs
 DOC_APPS = ["usuario", "configuracao_core"]
