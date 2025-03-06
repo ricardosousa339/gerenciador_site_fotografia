@@ -190,7 +190,7 @@ SIMPLE_JWT = {
 }
 
 # ÁREA PARA CONFIGURAÇÃO DAS VARIÁVEIS DO PROJETO
-SYSTEM_NAME = "Gerenciador De Site De Fotografia "
+SYSTEM_NAME = "Gerenciador De Portifólio "
 
 LOGIN_URL = "/core/login"
 LOGIN_REDIRECT_URL = "/core"
@@ -283,12 +283,16 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 EMAIL_TIMEOUT = config("EMAIL_TIMEOUT", default=10, cast=int)
 
 FIREBASE_CREDENTIALS = os.path.join(BASE_DIR, 'firebase-key.json')
-DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
-GS_BUCKET_NAME = config('GS_BUCKET_NAME')
-GS_PROJECT_ID = config('GS_PROJECT_ID')
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    FIREBASE_CREDENTIALS
-)
+
+# Condiciona o carregamento das credenciais do Google Cloud
+if os.path.exists(FIREBASE_CREDENTIALS):
+    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(FIREBASE_CREDENTIALS)
+else:
+    GS_CREDENTIALS = None  # Ou configure um valor padrão, se necessário
+
+DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE', default='django.core.files.storage.FileSystemStorage')
+GS_BUCKET_NAME = config('GS_BUCKET_NAME', default='')
+GS_PROJECT_ID = config('GS_PROJECT_ID', default='seu-projeto-id-padrao')
 
 # Swagger e Redoc
 SPECTACULAR_SETTINGS = {
