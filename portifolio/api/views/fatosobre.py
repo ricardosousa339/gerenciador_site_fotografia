@@ -49,4 +49,4 @@ class FatoSobreReadOnlyAPI(OptimizedQuerySetMixin, ReadOnlyModelViewSet):
     
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(usuario=self.request.user.usuario, deleted=False)
+        return qs.filter(usuario=self.request.user.usuario, deleted=False, enabled=True)
