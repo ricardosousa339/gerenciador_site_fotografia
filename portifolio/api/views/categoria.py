@@ -27,10 +27,17 @@ class CategoriaViewAPI(ModelViewSet):
     search_fields = []
     ordering_fields = []
 
+
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(usuario=self.request.user.usuario, deleted=False, enabled=True)
-
+        return qs.filter(
+            usuario=self.request.user.usuario,
+            deleted=False,
+            enabled=True,
+            albums__isnull=False  # somente categorias com pelo menos um álbum relacionado
+        ).distinct()
+    
+    
 class CategoriaReadOnlyAPI(OptimizedQuerySetMixin, ReadOnlyModelViewSet):
     """Classe para gerenciar as requisições da API GET com apenas leitura
 
@@ -50,4 +57,9 @@ class CategoriaReadOnlyAPI(OptimizedQuerySetMixin, ReadOnlyModelViewSet):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs.filter(usuario=self.request.user.usuario, deleted=False, enabled=True)
+        return qs.filter(
+            usuario=self.request.user.usuario,
+            deleted=False,
+            enabled=True,
+            albums__isnull=False  # somente categorias com pelo menos um álbum relacionado
+        ).distinct()
