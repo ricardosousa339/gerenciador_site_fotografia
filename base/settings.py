@@ -7,6 +7,13 @@ from decouple import Csv, config
 from django.contrib.messages import constants as messages
 from sentry_sdk.integrations.django import DjangoIntegration
 from google.oauth2 import service_account
+
+# Set Google credentials path explicitly in the environment
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
+    'firebase-key.json'
+)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
