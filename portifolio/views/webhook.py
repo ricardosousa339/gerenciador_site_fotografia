@@ -41,7 +41,8 @@ def webhook_deploy(request):
         
         # Atualização de dependências usando subprocess com a flag --user
         import subprocess
-        subprocess.check_call(['python', '-m', 'pip', 'install', '--user', '-r', 'requirements.txt'])
+        import sys
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--user', '-r', 'requirements.txt'])
         
         # Recarregamento do aplicativo
         wsgi_path = '/var/www/gerencia_ricardomachado_me_wsgi.py'
