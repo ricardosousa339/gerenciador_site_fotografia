@@ -67,6 +67,9 @@ class SecaoSobreCreateView(BaseCreateView):
         form.fields["imagem"].queryset = form.fields["imagem"].queryset.filter(
             usuario=self.request.user.usuario, deleted=False, enabled=True
         )
+        form.fields["fatos_sobre"].queryset = form.fields["fatos_sobre"].queryset.filter(
+            usuario=self.request.user.usuario, deleted=False, enabled=True
+        )
         return form
     
     def form_valid(self, form):
