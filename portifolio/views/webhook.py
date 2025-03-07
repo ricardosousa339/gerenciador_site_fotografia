@@ -39,9 +39,9 @@ def webhook_deploy(request):
         origin = repo.remotes.origin
         origin.pull('master')
         
-        # Atualização de dependências usando subprocess
+        # Atualização de dependências usando subprocess com a flag --user
         import subprocess
-        subprocess.check_call(['python', '-m', 'pip', 'install', '-r', 'requirements.txt'])
+        subprocess.check_call(['python', '-m', 'pip', 'install', '--user', '-r', 'requirements.txt'])
         
         # Recarregamento do aplicativo
         wsgi_path = '/var/www/gerencia_ricardomachado_me_wsgi.py'
