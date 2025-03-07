@@ -1,4 +1,3 @@
-
 from base import settings
 """
 Webhook endpoint for automated deployment via GitHub webhooks.
@@ -40,9 +39,9 @@ def webhook_deploy(request):
         origin = repo.remotes.origin
         origin.pull('master')
         
-        # Atualização de dependências
-        with open('/tmp/update.log', 'w') as f:
-            f.write(str(repo.git.execute(['pip', 'install', '-r', 'requirements.txt'])))
+        # Atualização de dependências usando subprocess
+        import subprocess
+        subprocess.check_call(['python', '-m', 'pip', 'install', '-r', 'requirements.txt'])
         
         # Recarregamento do aplicativo
         wsgi_path = '/var/www/gerencia_ricardomachado_me_wsgi.py'
