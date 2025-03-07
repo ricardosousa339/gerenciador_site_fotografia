@@ -25,6 +25,8 @@ Dependencies:
 """
 import git
 import os
+import sys
+import subprocess
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -40,9 +42,11 @@ def webhook_deploy(request):
         origin.pull('master')
         
         # Atualização de dependências usando subprocess com a flag --user
-        import subprocess
-        import sys
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--user', '-r', 'requirements.txt'])
+        command = [sys.executable, '-m', 'pip', 'install', '--user', '-r', 'requirements.txt']
+        if 'uwsgi' in sys.executable.lower():
+            command = ['python3', '-m', 'pip', 'install', '--user', '-r', 'requirements.txt']
+
+        subprocess.check_call(command)
         
         # Recarregamento do aplicativo
         wsgi_path = '/var/www/gerencia_ricardomachado_me_wsgi.py'
