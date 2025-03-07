@@ -42,11 +42,13 @@ def webhook_deploy(request):
         origin.pull('master')
         
         # Atualização de dependências usando subprocess com a flag --user
+        # Define o diretório onde o requirements.txt está localizado
+        project_path = '/home/criadordeportifolio/gerenciador_site_fotografia'
         command = [sys.executable, '-m', 'pip', 'install', '--user', '-r', 'requirements.txt']
         if 'uwsgi' in sys.executable.lower():
             command = ['python3', '-m', 'pip', 'install', '--user', '-r', 'requirements.txt']
-
-        subprocess.check_call(command)
+            
+        subprocess.check_call(command, cwd=project_path)
         
         # Recarregamento do aplicativo
         wsgi_path = '/var/www/gerencia_ricardomachado_me_wsgi.py'
