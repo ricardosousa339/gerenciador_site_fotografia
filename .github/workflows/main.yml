@@ -79,4 +79,4 @@ jobs:
           url: 'http://gerencia.ricardomachado.me/core/portifolio/webhook/deploy/'
           method: 'POST'
           customHeaders: '{"X-Secret-Token": "${{ secrets.DEPLOY_TOKEN }}"}'
-          timeout: 50000
+          timeout: 500000
