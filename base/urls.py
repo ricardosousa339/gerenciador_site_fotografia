@@ -17,8 +17,9 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.http import HttpResponseBadRequest
+from django.shortcuts import redirect
 from django.urls import include, path
-from django.views.generic import RedirectView
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -36,8 +37,6 @@ from core.views.errors import (
 
 from . import urls_api
 
-from django.shortcuts import redirect
-from django.http import HttpResponseBadRequest
 
 def dynamic_redirect(request, destination):
     # Se desejar, faça validações para evitar redirecionamentos inseguros
@@ -47,6 +46,7 @@ def dynamic_redirect(request, destination):
     if not (destination.startswith("http://") or destination.startswith("https://")):
         destination = "http://" + destination
     return redirect(destination)
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -72,8 +72,9 @@ urlpatterns = [
     # URL de autenticação JWT
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
- 
-    path('core/redirect/<path:destination>/', dynamic_redirect, name='dynamic_redirect'),
+    path(
+        "core/redirect/<path:destination>/", dynamic_redirect, name="dynamic_redirect"
+    ),
 ]
 
 # Adicionando as urls da APIRest no urlpatterns do projeto

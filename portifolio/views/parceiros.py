@@ -59,6 +59,7 @@ class ParceirosCreateView(BaseCreateView):
     context_object_name = "parceiros"
     success_url = "portifolio:parceiros-list"
     template_name = "portifolio/parceiros/parceiros_create.html"
+
     # inlines = []
     # form_modals = []
     def get_form(self, form_class=None):
@@ -68,6 +69,7 @@ class ParceirosCreateView(BaseCreateView):
             usuario=self.request.user.usuario, deleted=False, enabled=True
         )
         return form
+
     def form_valid(self, form):
 
         usuario_instance = self.request.user.usuario
@@ -75,6 +77,7 @@ class ParceirosCreateView(BaseCreateView):
 
         form.instance.usuario = usuario_instance
         return super().form_valid(form)
+
 
 class ParceirosUpdateView(BaseUpdateView):
     """Classe para gerenciar a update do Parceiros"""

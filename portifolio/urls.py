@@ -16,6 +16,14 @@ from portifolio.views.categoria import (
     CategoriaRestoreView,
     CategoriaUpdateView,
 )
+from portifolio.views.dadosprincipais import (
+    DadosPrincipaisCreateView,
+    DadosPrincipaisDeleteView,
+    DadosPrincipaisDetailView,
+    DadosPrincipaisListView,
+    DadosPrincipaisRestoreView,
+    DadosPrincipaisUpdateView,
+)
 from portifolio.views.fatosobre import (
     FatoSobreCreateView,
     FatoSobreDeleteView,
@@ -56,6 +64,14 @@ from portifolio.views.parceiros import (
     ParceirosListView,
     ParceirosRestoreView,
     ParceirosUpdateView,
+)
+from portifolio.views.secaocontato import (
+    SecaoContatoCreateView,
+    SecaoContatoDeleteView,
+    SecaoContatoDetailView,
+    SecaoContatoListView,
+    SecaoContatoRestoreView,
+    SecaoContatoUpdateView,
 )
 from portifolio.views.secaosobre import (
     SecaoSobreCreateView,
@@ -307,6 +323,73 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('portifolio/webhook/deploy/', webhook_deploy, name='deploy-webhook'),
+    path("portifolio/webhook/deploy/", webhook_deploy, name="deploy-webhook"),
 ]
 
+# URLs do Models DadosPrincipais
+urlpatterns += [
+    path(
+        "portifolio/dadosprincipais/",
+        DadosPrincipaisListView.as_view(),
+        name="dadosprincipais-list",
+    ),
+    path(
+        "portifolio/dadosprincipais/create/",
+        DadosPrincipaisCreateView.as_view(),
+        name="dadosprincipais-create",
+    ),
+    path(
+        "portifolio/dadosprincipais/<uuid:pk>/",
+        DadosPrincipaisDetailView.as_view(),
+        name="dadosprincipais-detail",
+    ),
+    path(
+        "portifolio/dadosprincipais/update/<uuid:pk>/",
+        DadosPrincipaisUpdateView.as_view(),
+        name="dadosprincipais-update",
+    ),
+    path(
+        "portifolio/dadosprincipais/delete/<uuid:pk>/",
+        DadosPrincipaisDeleteView.as_view(),
+        name="dadosprincipais-delete",
+    ),
+    path(
+        "portifolio/dadosprincipais/restore/<uuid:pk>/",
+        DadosPrincipaisRestoreView.as_view(),
+        name="dadosprincipais-restore",
+    ),
+]
+
+# URLs do Models SecaoContato
+urlpatterns += [
+    path(
+        "portifolio/secaocontato/",
+        SecaoContatoListView.as_view(),
+        name="secaocontato-list",
+    ),
+    path(
+        "portifolio/secaocontato/create/",
+        SecaoContatoCreateView.as_view(),
+        name="secaocontato-create",
+    ),
+    path(
+        "portifolio/secaocontato/<uuid:pk>/",
+        SecaoContatoDetailView.as_view(),
+        name="secaocontato-detail",
+    ),
+    path(
+        "portifolio/secaocontato/update/<uuid:pk>/",
+        SecaoContatoUpdateView.as_view(),
+        name="secaocontato-update",
+    ),
+    path(
+        "portifolio/secaocontato/delete/<uuid:pk>/",
+        SecaoContatoDeleteView.as_view(),
+        name="secaocontato-delete",
+    ),
+    path(
+        "portifolio/secaocontato/restore/<uuid:pk>/",
+        SecaoContatoRestoreView.as_view(),
+        name="secaocontato-restore",
+    ),
+]

@@ -30,6 +30,7 @@ class FatoSobreViewAPI(ModelViewSet):
         qs = super().get_queryset()
         return qs.filter(usuario=self.request.user.usuario, deleted=False, enabled=True)
 
+
 class FatoSobreReadOnlyAPI(OptimizedQuerySetMixin, ReadOnlyModelViewSet):
     """Classe para gerenciar as requisições da API GET com apenas leitura
 
@@ -46,7 +47,7 @@ class FatoSobreReadOnlyAPI(OptimizedQuerySetMixin, ReadOnlyModelViewSet):
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = []
     ordering_fields = []
-    
+
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(usuario=self.request.user.usuario, deleted=False, enabled=True)

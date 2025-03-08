@@ -74,7 +74,7 @@ class FatoSobreCreateView(BaseCreateView):
     #         usuario=self.request.user.usuario, deleted=False, enabled=True
     #     )
     #     return form
-    
+
     def form_valid(self, form):
 
         usuario_instance = self.request.user.usuario
@@ -82,6 +82,7 @@ class FatoSobreCreateView(BaseCreateView):
 
         form.instance.usuario = usuario_instance
         return super().form_valid(form)
+
 
 class FatoSobreUpdateView(BaseUpdateView):
     """Classe para gerenciar a update do FatoSobre"""

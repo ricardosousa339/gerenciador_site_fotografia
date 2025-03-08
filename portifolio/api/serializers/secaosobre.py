@@ -8,8 +8,10 @@ from portifolio.models import SecaoSobre
 
 class SecaoSobreSerializer(FieldsListSerializerMixin, ModelSerializer):
     """Class do serializer do model SecaoSobre para o POST, PUT, PATCH, DELETE"""
+
     imagem = FotoSerializer(many=False, read_only=True)
     fatos_sobre = FatoSobreSerializer(many=True, read_only=True)
+
     class Meta:
         model = SecaoSobre
         exclude = ["deleted", "enabled"]

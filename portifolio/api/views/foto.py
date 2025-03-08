@@ -30,6 +30,7 @@ class FotoViewAPI(ModelViewSet):
         qs = super().get_queryset()
         return qs.filter(usuario=self.request.user.usuario, deleted=False, enabled=True)
 
+
 class FotoReadOnlyAPI(OptimizedQuerySetMixin, ReadOnlyModelViewSet):
     """Classe para gerenciar as requisições da API GET com apenas leitura
 

@@ -2,6 +2,10 @@ from rest_framework import routers
 
 from portifolio.api.views.album import AlbumReadOnlyAPI, AlbumViewAPI
 from portifolio.api.views.categoria import CategoriaReadOnlyAPI, CategoriaViewAPI
+from portifolio.api.views.dadosprincipais import (
+    DadosPrincipaisReadOnlyAPI,
+    DadosPrincipaisViewAPI,
+)
 from portifolio.api.views.fatosobre import FatoSobreReadOnlyAPI, FatoSobreViewAPI
 from portifolio.api.views.foto import FotoReadOnlyAPI, FotoViewAPI
 from portifolio.api.views.imagemheader import (
@@ -13,6 +17,10 @@ from portifolio.api.views.mensagemcontato import (
     MensagemContatoViewAPI,
 )
 from portifolio.api.views.parceiros import ParceirosReadOnlyAPI, ParceirosViewAPI
+from portifolio.api.views.secaocontato import (
+    SecaoContatoReadOnlyAPI,
+    SecaoContatoViewAPI,
+)
 from portifolio.api.views.secaosobre import SecaoSobreReadOnlyAPI, SecaoSobreViewAPI
 
 router = routers.DefaultRouter()
@@ -63,6 +71,22 @@ router.register(
 # URL para a API Parceiros
 router.register(r"parceiros", ParceirosViewAPI, "parceiros-api")
 router.register(r"parceiros_readonly", ParceirosReadOnlyAPI, "parceiros-readonly-api")
+
+
+# URL para a API DadosPrincipais
+router.register(r"dadosprincipais", DadosPrincipaisViewAPI, "dadosprincipais-api")
+router.register(
+    r"dadosprincipais_readonly",
+    DadosPrincipaisReadOnlyAPI,
+    "dadosprincipais-readonly-api",
+)
+
+
+# URL para a API SecaoContato
+router.register(r"secaocontato", SecaoContatoViewAPI, "secaocontato-api")
+router.register(
+    r"secaocontato_readonly", SecaoContatoReadOnlyAPI, "secaocontato-readonly-api"
+)
 
 
 urlpatterns = router.urls

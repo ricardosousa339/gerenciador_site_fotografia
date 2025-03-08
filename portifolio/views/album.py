@@ -64,9 +64,9 @@ class AlbumDetailView(BaseDetailView):
             form.fields["capa"].queryset = form.fields["capa"].queryset.filter(
                 usuario=usuario, deleted=False, enabled=True
             )
-            form.fields["categoria"].queryset = form.fields["categoria"].queryset.filter(
-                usuario=usuario, deleted=False, enabled=True
-            )
+            form.fields["categoria"].queryset = form.fields[
+                "categoria"
+            ].queryset.filter(usuario=usuario, deleted=False, enabled=True)
         else:
             # Se o usuário logado não tiver um perfil de Usuario associado, retorna queryset vazio
             form.fields["fotos"].queryset = form.fields["fotos"].queryset.none()
@@ -97,9 +97,9 @@ class AlbumCreateView(BaseCreateView):
             form.fields["capa"].queryset = form.fields["capa"].queryset.filter(
                 usuario=usuario, deleted=False, enabled=True
             )
-            form.fields["categoria"].queryset = form.fields["categoria"].queryset.filter(
-                usuario=usuario, deleted=False, enabled=True
-            )
+            form.fields["categoria"].queryset = form.fields[
+                "categoria"
+            ].queryset.filter(usuario=usuario, deleted=False, enabled=True)
         else:
             # Se o usuário logado não tiver um perfil de Usuario associado, retorna queryset vazio
             form.fields["fotos"].queryset = form.fields["fotos"].queryset.none()

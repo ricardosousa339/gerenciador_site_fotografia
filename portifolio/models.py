@@ -76,6 +76,50 @@ class Foto(Base):
     def __str__(self):
         return self.nome
     
+class DadosPrincipais(Base):
+    nome = models.CharField(
+        max_length=255,
+        help_text="Seu nome")
+    subtitulo = models.TextField(
+        max_length=1000,
+        help_text="Texto embaixo do seu nome"
+    )
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='dados_principais'
+    )
+
+    class Meta:
+        verbose_name = "Dados Principais"
+        verbose_name_plural = "Dados Dados Principais"
+        fields_display = ["nome", "subtitulo"]
+        # icon_model = "fas fa-user"
+
+    def __str__(self):
+        return self.nome
+    
+class SecaoContato(Base):
+    titulo = models.CharField(max_length=255)
+    descricao = models.TextField(
+        max_length=1000,
+        help_text="Texto da Seção Contato"
+    )
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='secoes_contato'
+    )
+
+    class Meta:
+        verbose_name = "Seção Contato"
+        verbose_name_plural = "Seções Contato"
+        fields_display = ["titulo", "descricao"]
+        # icon_model = "fas fa-user"
+
+    def __str__(self):
+        return self.titulo
+
 class ImagemHeader(Base):
     imagem = models.ForeignKey(
         Foto,
