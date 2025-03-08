@@ -86,14 +86,16 @@ class DadosPrincipais(Base):
     )
 
     titulo_portifolio = models.CharField(
+        "Título do Portifólio",
         max_length=255,
-        help_text="Título do Portifólio",
+        help_text="Ficará acima dos álbums",
         blank=True,
         null=True
     )
     descricao_portifolio = models.TextField(
+        "Descrição do Portifólio",
         max_length=1000,
-        help_text="Texto do Portifólio",
+        help_text="Texto embaixo do título do portifólio",
         blank=True,
         null=True
     )

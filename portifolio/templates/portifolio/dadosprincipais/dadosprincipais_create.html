@@ -77,6 +77,22 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                                 <div class="invalid-feedback">{{ form.usuario.errors }}</div>
                             </div>
                         {% endif %}
+                        {% if form.titulo_portifolio in form.visible_fields %}
+                        <div class="form-group col-md-6">
+                            {{ form.titulo_portifolio.label_tag }}
+                            {{ form.titulo_portifolio }}
+                            {% if form.titulo_portifolio.help_text %}<small class="form-text text-muted">{{ form.titulo_portifolio.help_text }}</small>{% endif %}
+                            <div class="invalid-feedback">{{ form.titulo_portifolio.errors }}</div>
+                        </div>
+                    {% endif %}
+                    {% if form.descricao_portifolio in form.visible_fields %}
+                    <div class="form-group col-md-6">
+                        {{ form.descricao_portifolio.label_tag }}
+                        {{ form.descricao_portifolio }}
+                        {% if form.descricao_portifolio.help_text %}<small class="form-text text-muted">{{ form.descricao_portifolio.help_text }}</small>{% endif %}
+                        <div class="invalid-feedback">{{ form.descricao_portifolio.errors }}</div>
+                    </div>
+                {% endif %}
                     </div>
                 </div>
                 {% block content_inline %}
