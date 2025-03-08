@@ -69,7 +69,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = "base.urls"
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8081",
+    "http://localhost:8081", "https://ricardosousa339.github.io/",
 ]
 TEMPLATES = [
     {
