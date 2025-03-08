@@ -49,6 +49,7 @@ from portifolio.views.imagemheader import (
     ImagemHeaderUpdateView,
 )
 from portifolio.views.index import PortifolioIndexTemplateView
+from portifolio.views.inicio import InicioView
 from portifolio.views.mensagemcontato import (
     MensagemContatoCreateView,
     MensagemContatoDeleteView,
@@ -392,4 +393,9 @@ urlpatterns += [
         SecaoContatoRestoreView.as_view(),
         name="secaocontato-restore",
     ),
+    path(
+        "portifolio/inicio/",
+        InicioView.as_view(),
+        name="inicio",
+    )
 ]

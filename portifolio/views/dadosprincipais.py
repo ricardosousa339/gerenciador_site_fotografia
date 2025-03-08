@@ -8,6 +8,7 @@ from core.views.base import (
 )
 from portifolio.forms.dadosprincipais import DadosPrincipaisForm
 from portifolio.models import DadosPrincipais
+from usuario.models import Usuario
 
 
 # Views do Models DadosPrincipais
@@ -32,9 +33,13 @@ class DadosPrincipaisListView(BaseListView):
         Returns:
             QuerySet
         """
-
-        queryset = super(DadosPrincipaisListView, self).get_queryset()
-        return queryset
+        qs = super(DadosPrincipaisListView, self).get_queryset()
+        # Se o usuário for um superusuário, retorna todos os registros.
+        if self.request.user.is_superuser:
+            return qs
+        # Caso contrário, filtra os registros associados ao usuário logado.
+        usuario_instance = self.request.user.usuario
+        return qs.filter(usuario=usuario_instance)
 
 
 class DadosPrincipaisDetailView(BaseDetailView):
@@ -42,7 +47,7 @@ class DadosPrincipaisDetailView(BaseDetailView):
 
     model = DadosPrincipais
     form_class = DadosPrincipaisForm
-    success_url = "portifolio:dadosprincipais-list"
+    success_url = "portifolio:inicio"
     template_name = "portifolio/dadosprincipais/dadosprincipais_detail.html"
     context_object_name = "dadosprincipais"
 
@@ -61,6 +66,15 @@ class DadosPrincipaisCreateView(BaseCreateView):
     template_name = "portifolio/dadosprincipais/dadosprincipais_create.html"
     # inlines = []
     # form_modals = []
+    def form_valid(self, form):
+        # Converter request.user para uma instância de Usuario;
+        # supondo que haja uma relação OneToOne entre os dois modelos:
+        usuario_instance = self.request.user.usuario
+        # Caso não haja OneToOne, utilize outro critério, por exemplo:
+        usuario_instance = Usuario.objects.get(email=self.request.user.email)
+
+        form.instance.usuario = usuario_instance
+        return super().form_valid(form)
 
 
 class DadosPrincipaisUpdateView(BaseUpdateView):

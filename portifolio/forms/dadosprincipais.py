@@ -6,5 +6,5 @@ class DadosPrincipaisForm(BaseForm):
     """Form padrão para o model DadosPrincipais"""
 
     class Meta:
-        exclude = ["deleted", "enabled"]
+        exclude = ["deleted", "enabled", "usuario"]
         model = DadosPrincipais

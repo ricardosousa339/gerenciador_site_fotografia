@@ -84,6 +84,20 @@ class DadosPrincipais(Base):
         max_length=1000,
         help_text="Texto embaixo do seu nome"
     )
+
+    titulo_portifolio = models.CharField(
+        max_length=255,
+        help_text="Título do Portifólio",
+        blank=True,
+        null=True
+    )
+    descricao_portifolio = models.TextField(
+        max_length=1000,
+        help_text="Texto do Portifólio",
+        blank=True,
+        null=True
+    )
+
     usuario = models.ForeignKey(
         Usuario,
         on_delete=models.CASCADE,
@@ -134,8 +148,8 @@ class ImagemHeader(Base):
     )
 
     class Meta:
-        verbose_name = "Imagem de Cabeçalho"
-        verbose_name_plural = "Imagens de Cabeçalho"
+        verbose_name = "Imagens em Destaque"
+        verbose_name_plural = "Imagens em Destaque"
         fields_display = ["imagem"]
         # icon_model = "fas fa-user"
 

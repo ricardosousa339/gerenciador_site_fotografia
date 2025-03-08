@@ -1,0 +1,70 @@
+{% extends 'core/index.html' %}
+{% load base %}
+{% load static %}
+{% block title %}{{ 'Portifólio' }}{% endblock %}
+
+{% block content %}
+
+<!--
+Arquivo gerado automaticamente pelo build.
+Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerquilha) antes da palavra a seguir
+#FileLocked
+-->
+<div class="row clearfix">
+    <div class="p-3 br-card h-100 rounder-md" id="cardundefined">
+        <h4 class="mb-15 text-blue">Dados</h4>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {% if dadosprincipais %}
+                    <a class="br-button secondary block large text-wrap"
+                        href="{% url 'portifolio:dadosprincipais-update' dadosprincipais.pk %}">{{ 'Dados Principais'
+                        }}</a>
+                    {% else %}
+                    <a class="br-button secondary block large text-wrap"
+                        href="{% url 'portifolio:dadosprincipais-create' %}">{{ 'Dados Principais' }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {% if imagemdestaque %}
+                    <a class="br-button secondary block large text-wrap"
+                        href="{% url 'portifolio:imagemheader-update' imagemdestaque.pk %}">{{ 'Imagens em Destaque'
+                        }}</a>
+                    {% else %}
+                    <a class="br-button secondary block large text-wrap"
+                        href="{% url 'portifolio:imagemheader-create' %}">{{ 'Imagens em Destaque' }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-3 br-card h-100 rounder-md" id="cardundefined">
+        <h4 class="mb-15 text-blue">Fotos</h4>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <a class="br-button secondary block large text-wrap"
+                        href="{% url 'portifolio:imagemheader-list' %}">{{ 'Imagens em Destaque' }}</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="p-3 br-card h-100 rounder-md" id="cardundefined">
+    <h4 class="mb-15 text-blue">Fotos</h4>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <a class="br-button secondary block large text-wrap" href="{% url 'portifolio:foto-create' %}">{{ 'Criar Foto' }}</a>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+</div>
+
+{% endblock content %}

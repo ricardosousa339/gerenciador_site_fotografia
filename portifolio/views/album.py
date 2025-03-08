@@ -33,9 +33,13 @@ class AlbumListView(BaseListView):
         Returns:
             QuerySet
         """
-
-        queryset = super(AlbumListView, self).get_queryset()
-        return queryset
+        qs = super(AlbumListView, self).get_queryset()
+        # Se o usuário for um superusuário, retorna todos os registros.
+        if self.request.user.is_superuser:
+            return qs
+        # Caso contrário, filtra os registros associados ao usuário logado.
+        usuario_instance = self.request.user.usuario
+        return qs.filter(usuario=usuario_instance)
 
 
 class AlbumDetailView(BaseDetailView):
