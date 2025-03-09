@@ -21,7 +21,7 @@ class Album(Base):
         related_name='cover',
         blank=True,
         null=True,
-        help_text="Você deve criar uma foto então poderá selecioná-la aqui, para ser a capa do álbum",
+        help_text="A foto que será a capa do álbum",
     )
     fotos = models.ManyToManyField(
         "Foto",
@@ -184,7 +184,9 @@ class Categoria(Base):
 
 
 class SecaoSobre(Base):
-    titulo = models.CharField(max_length=255)
+    titulo = models.CharField(
+        max_length=255,
+        help_text="Ex.: Sobre Mim")
     descricao = models.TextField(
         max_length=1000,
         help_text="Texto da Seção Sobre"

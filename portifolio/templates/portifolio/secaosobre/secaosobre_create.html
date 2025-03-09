@@ -90,7 +90,7 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                                 {{ form.fatos_sobre.label_tag }}
                                 {{ form.fatos_sobre }}
                                 {% if form.fatos_sobre.help_text %}
-                                    <small class="form-text text-muted">{{ form.fatos_sobre.help_text }}</small>
+                                    <small class="form-text text-muted">Crie os Fatos Sobre <a href="{% url 'portifolio:fatosobre-list' %}">aqui</a></small>
                                 {% endif %}
                                 <div class="invalid-feedback">{{ form.fatos_sobre.errors }}</div>
                             </div>
@@ -204,26 +204,11 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                         </div>
                         <div>
                             <button type="submit"
-                                    class="br-button secondary block"
+                                    class="br-button primary block"
                                     name="_continue"
-                                    value="Salvar e Continuar">Salvar e Continuar</button>
+                                    value="Salvar e Continuar">Salvar</button>
                         </div>
-                        <div>
-                            <button type="submit"
-                                    class="br-button secondary block"
-                                    name="_addanother"
-                                    value="Salvar e Adicionar Novo">Salvar e Adicionar Novo</button>
-                        </div>
-                        <div>
-                            {% if list_inlines %}
-                                <button type="submit"
-                                        class="br-button primary block"
-                                        name="_continue"
-                                        value="Salvar Todos">Salvar Todos</button>
-                            {% else %}
-                                <button type="submit" class="br-button primary block" value="Salvar">Salvar</button>
-                            {% endif %}
-                        </div>
+
                     </div>
                 </div>
             </form>

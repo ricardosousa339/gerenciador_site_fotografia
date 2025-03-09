@@ -56,7 +56,7 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
                     <td>{{ item.nome }}</td>
                     <td>
                         <div class="col-6 col-md-4 col-lg-3 mb-4">
-                            <img src="/media/{{ item.arquivo }}"
+                            <img src="{{ item.arquivo.url }}"
                                  class="card-img-top"
                                  alt="{{ item.arquivo }}">
                         </div>

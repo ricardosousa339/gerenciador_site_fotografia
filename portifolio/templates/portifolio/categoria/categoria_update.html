@@ -94,6 +94,14 @@ Delete (Deletar um novo registro via API)
                                 <div class="invalid-feedback">{{ form.usuario.errors }}</div>
                             </div>
                         {% endif %}
+                        {% if form.icone in form.visible_fields %}
+                        <div class="form-group col-md-6">
+                            {{ form.icone.label_tag }}
+                            {{ form.icone }}
+                            <small class="form-text text-muted">Copie o código do ícone desejado no site <a href="https://lucide.dev/icons" target="_blank">lucide.dev/icons</a></small>
+                            <div class="invalid-feedback">{{ form.icone.errors }}</div>
+                        </div>
+                    {% endif %}
                     </div>
                 </div>
                 {% block content_inline %}

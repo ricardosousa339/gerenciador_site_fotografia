@@ -27,20 +27,20 @@ class ImagemHeaderListView(BaseListView):
         return context
 
 
-def get_queryset(self):
-    """Subscrevendo o queryset para
-    filtrar os dados conforme o perfil logado
+    def get_queryset(self):
+        """Subscrevendo o queryset para
+        filtrar os dados conforme o perfil logado
 
-    Returns:
-        QuerySet
-    """
-    qs = super(ImagemHeaderListView, self).get_queryset()
-    # Se o usuário for um superusuário, retorna todos os registros.
-    if self.request.user.is_superuser:
-        return qs
-    # Caso contrário, filtra os registros associados ao usuário logado.
-    usuario_instance = self.request.user.usuario
-    return qs.filter(usuario=usuario_instance)
+        Returns:
+            QuerySet
+        """
+        qs = super(ImagemHeaderListView, self).get_queryset()
+        # Se o usuário for um superusuário, retorna todos os registros.
+        if self.request.user.is_superuser:
+            return qs
+        # Caso contrário, filtra os registros associados ao usuário logado.
+        usuario_instance = self.request.user.usuario
+        return qs.filter(usuario=usuario_instance)
 
 
 class ImagemHeaderDetailView(BaseDetailView):
@@ -91,7 +91,14 @@ class ImagemHeaderUpdateView(BaseUpdateView):
     template_name = "portifolio/imagemheader/imagemheader_update.html"
     # inlines = []
     # form_modals = []
-
+    
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Filtra as fotos para incluir apenas as do usuário logado
+        form.fields["imagem"].queryset = form.fields["imagem"].queryset.filter(
+            usuario=self.request.user.usuario, deleted=False, enabled=True
+        )
+        return form
 
 class ImagemHeaderDeleteView(BaseDeleteView):
     """Classe para gerenciar o delete do ImagemHeader"""

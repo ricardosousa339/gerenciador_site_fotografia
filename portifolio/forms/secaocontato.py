@@ -6,5 +6,5 @@ class SecaoContatoForm(BaseForm):
     """Form padrão para o model SecaoContato"""
 
     class Meta:
-        exclude = ["deleted", "enabled"]
+        exclude = ["deleted", "enabled", "usuario"]
         model = SecaoContato
