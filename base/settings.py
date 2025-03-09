@@ -70,6 +70,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = "base.urls"
 
 CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", cast=Csv(), default="http://localhost:8081")
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
