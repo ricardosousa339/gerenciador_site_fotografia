@@ -12,33 +12,92 @@ Caso deseje bloquear o parser nesse arquivo, basta adicionar o caracter #(cerqui
     Portifolio
 {% endblock title_modulo %}
 {% block content %}
-    <div class="row clearfix">
-        {% for app in apps %}
-            {% comment %} Verificando permissão ao App {% endcomment %}
-            {% if app.real_name_app.lower in perms %}
-                {% if app.real_name_app.lower == 'portifolio' %}
-                    {% if not forloop.first and forloop.counter0|divisibleby:2 %}<div class="w-100"></div>{% endif %}
-                    <div class="col-md-6 col-sm-12 mb-5">
-                        <div class="p-3 bg-white rounded shadow-sm h-100">
-                            <h4 class="mb-15 text-blue">{{ app.name_app }}</h4>
-                            <div class="card-body">
-                                <div class="row">
-                                    {% for model in app.models_app %}
-                                        {% comment %} Checa permissão de view {% endcomment %}
-                                        {% if model|has_view_permission:request %}
-                                            {% comment %} Quantidade impar de modelos usa largura total {% endcomment %}
-                                            <div class="col-{% if forloop.revcounter0|divisibleby:2 and forloop.first %}md-12 {% else %}md-6 {% endif %} mb-3">
-                                                <a class="br-button secondary block large text-wrap"
-                                                   href="{% url model.path_url %}">{{ model.name_model }}</a>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
+<div class="row clearfix">
+    <div class="row clearfix">       
+        <div class="col-md-6 col-sm-12 mb-5">
+            <div class="p-3 br-card h-100 rounder-md" id="cardundefined">
+                <h4 class="mb-15 text-blue">Dados</h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {% if dadosprincipais %}
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:dadosprincipais-update' dadosprincipais.pk %}">{{ 'Dados Principais'}}
+                                </a>
+                            {% else %}
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:dadosprincipais-create' %}">{{ 'Dados Principais' }}</a>
+                            {% endif %}
+                        </div>
+        
+                        <div class="col-md-6 mb-3">
+                            {% if secaosobre %}
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:secaosobre-update' secaosobre.pk %}">{{ 'Seção Sobre' }}</a>
+                            {% else %}
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:secaosobre-create' %}">{{ 'Seção Sobre' }}</a>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            {% if secaocontato %}
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:secaocontato-update' secaocontato.pk %}">{{ 'Seção Contato' }}</a>
+                            {% else %}
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:secaocontato-create' %}">{{ 'Seção Contato' }}</a>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:parceiros-list' %}">{{ 'Parceiros' }}</a>
                         </div>
                     </div>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 mb-5">
+            <div class="p-3 br-card h-100 rounder-md" id="cardundefined">
+                <h4 class="mb-15 text-blue">Fotos</h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:foto-list' %}">{{ 'Todas as Fotos' }}</a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:imagemheader-list' %}">{{ 'Imagens em Destaque' }}</a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:categoria-list' %}">{{ 'Categorias' }}</a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:album-list' %}">{{ 'Álbums' }}</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mb-5">
+            <div class="p-3 br-card h-100 rounder-md" id="cardundefined">
+                <h4 class="mb-15 text-blue">Mensagens</h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <a class="br-button secondary block large text-wrap"
+                                href="{% url 'portifolio:mensagemcontato-list' %}">{{ 'Mensagens de Contato' }}</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>    
 {% endblock content %}

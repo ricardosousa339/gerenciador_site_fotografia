@@ -1,4 +1,5 @@
 from core.views.base import BaseTemplateView
+from portifolio.models import DadosPrincipais, SecaoContato, SecaoSobre
 
 
 # Views Inicial Portifolio
@@ -8,5 +9,7 @@ class PortifolioIndexTemplateView(BaseTemplateView):
     context_object_name = "portifolio"
 
     def get_context_data(self, **kwargs):
-        context = super(PortifolioIndexTemplateView, self).get_context_data(**kwargs)
-        return context
+        context = super().get_context_data(**kwargs)
+        context['dadosprincipais'] = DadosPrincipais.objects.filter(deleted=False).first()
+        context['secaosobre'] = SecaoSobre.objects.filter(deleted=False).first()
+        context['secaocontato'] = SecaoContato.objects.filter(deleted=False).first()
