@@ -59,6 +59,7 @@ class SecaoSobreCreateView(BaseCreateView):
     context_object_name = "secaosobre"
     success_url = "portifolio:secaosobre-list"
     template_name = "portifolio/secaosobre/secaosobre_create.html"
+
     # inlines = []
     # form_modals = []
     def get_form(self, form_class=None):
@@ -67,11 +68,13 @@ class SecaoSobreCreateView(BaseCreateView):
         form.fields["imagem"].queryset = form.fields["imagem"].queryset.filter(
             usuario=self.request.user.usuario, deleted=False, enabled=True
         )
-        form.fields["fatos_sobre"].queryset = form.fields["fatos_sobre"].queryset.filter(
+        form.fields["fatos_sobre"].queryset = form.fields[
+            "fatos_sobre"
+        ].queryset.filter(
             usuario=self.request.user.usuario, deleted=False, enabled=True
         )
         return form
-    
+
     def form_valid(self, form):
 
         usuario_instance = self.request.user.usuario
@@ -79,6 +82,7 @@ class SecaoSobreCreateView(BaseCreateView):
 
         form.instance.usuario = usuario_instance
         return super().form_valid(form)
+
 
 class SecaoSobreUpdateView(BaseUpdateView):
     """Classe para gerenciar a update do SecaoSobre"""

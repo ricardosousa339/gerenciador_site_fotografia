@@ -19,9 +19,11 @@ from core.views.misc import (
     SettingsView,
 )
 
+from portifolio.views.inicio import InicioView
+
 app_name = "core"
 urlpatterns = [
-    path("", IndexAdminTemplateView.as_view(), name="index"),
+    path("", InicioView.as_view(), name="index"),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("profile/", ProfileUpdateView.as_view(), name="profile"),

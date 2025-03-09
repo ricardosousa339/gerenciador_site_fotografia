@@ -21,7 +21,7 @@ class Album(Base):
         related_name='cover',
         blank=True,
         null=True,
-        help_text="Você deve criar uma foto então poderá selecioná-la aqui, para ser a capa do álbum",
+        help_text="A foto que será a capa do álbum",
     )
     fotos = models.ManyToManyField(
         "Foto",
@@ -76,6 +76,66 @@ class Foto(Base):
     def __str__(self):
         return self.nome
     
+class DadosPrincipais(Base):
+    nome = models.CharField(
+        max_length=255,
+        help_text="Seu nome")
+    subtitulo = models.TextField(
+        max_length=1000,
+        help_text="Texto embaixo do seu nome"
+    )
+
+    titulo_portifolio = models.CharField(
+        "Título do Portifólio",
+        max_length=255,
+        help_text="Ficará acima dos álbums",
+        blank=True,
+        null=True
+    )
+    descricao_portifolio = models.TextField(
+        "Descrição do Portifólio",
+        max_length=1000,
+        help_text="Texto embaixo do título do portifólio",
+        blank=True,
+        null=True
+    )
+
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='dados_principais'
+    )
+
+    class Meta:
+        verbose_name = "Dados Principais"
+        verbose_name_plural = "Dados Dados Principais"
+        fields_display = ["nome", "subtitulo"]
+        # icon_model = "fas fa-user"
+
+    def __str__(self):
+        return self.nome
+    
+class SecaoContato(Base):
+    titulo = models.CharField(max_length=255)
+    descricao = models.TextField(
+        max_length=1000,
+        help_text="Texto da Seção Contato"
+    )
+    usuario = models.ForeignKey(
+        Usuario,
+        on_delete=models.CASCADE,
+        related_name='secoes_contato'
+    )
+
+    class Meta:
+        verbose_name = "Seção Contato"
+        verbose_name_plural = "Seções Contato"
+        fields_display = ["titulo", "descricao"]
+        # icon_model = "fas fa-user"
+
+    def __str__(self):
+        return self.titulo
+
 class ImagemHeader(Base):
     imagem = models.ForeignKey(
         Foto,
@@ -90,8 +150,8 @@ class ImagemHeader(Base):
     )
 
     class Meta:
-        verbose_name = "Imagem de Cabeçalho"
-        verbose_name_plural = "Imagens de Cabeçalho"
+        verbose_name = "Imagens em Destaque"
+        verbose_name_plural = "Imagens em Destaque"
         fields_display = ["imagem"]
         # icon_model = "fas fa-user"
 
@@ -124,7 +184,9 @@ class Categoria(Base):
 
 
 class SecaoSobre(Base):
-    titulo = models.CharField(max_length=255)
+    titulo = models.CharField(
+        max_length=255,
+        help_text="Ex.: Sobre Mim")
     descricao = models.TextField(
         max_length=1000,
         help_text="Texto da Seção Sobre"

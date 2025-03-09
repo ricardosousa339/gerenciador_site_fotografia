@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "portifolio",
     "corsheaders",
+    "firebase_admin",
     # Apps do projeto
 ]
 

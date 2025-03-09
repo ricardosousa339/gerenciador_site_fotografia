@@ -32,9 +32,13 @@ class ParceirosListView(BaseListView):
         Returns:
             QuerySet
         """
-
-        queryset = super(ParceirosListView, self).get_queryset()
-        return queryset
+        qs = super(ParceirosListView, self).get_queryset()
+        # Se o usuário for um superusuário, retorna todos os registros.
+        if self.request.user.is_superuser:
+            return qs
+        # Caso contrário, filtra os registros associados ao usuário logado.
+        usuario_instance = self.request.user.usuario
+        return qs.filter(usuario=usuario_instance)
 
 
 class ParceirosDetailView(BaseDetailView):
@@ -59,6 +63,7 @@ class ParceirosCreateView(BaseCreateView):
     context_object_name = "parceiros"
     success_url = "portifolio:parceiros-list"
     template_name = "portifolio/parceiros/parceiros_create.html"
+
     # inlines = []
     # form_modals = []
     def get_form(self, form_class=None):
@@ -68,6 +73,7 @@ class ParceirosCreateView(BaseCreateView):
             usuario=self.request.user.usuario, deleted=False, enabled=True
         )
         return form
+
     def form_valid(self, form):
 
         usuario_instance = self.request.user.usuario
@@ -75,6 +81,7 @@ class ParceirosCreateView(BaseCreateView):
 
         form.instance.usuario = usuario_instance
         return super().form_valid(form)
+
 
 class ParceirosUpdateView(BaseUpdateView):
     """Classe para gerenciar a update do Parceiros"""
