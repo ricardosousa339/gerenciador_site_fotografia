@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "portifolio",
     "corsheaders",
-    "firebase_admin",
     # Apps do projeto
 ]
 
@@ -263,11 +262,11 @@ if DEBUG is False:
         environment=config("ENVIRONMENT", default="desenvolvimento"),
     )
 
-    from .elastic import ELASTIC_APM
+    # from .elastic import ELASTIC_APM
 
-    ELASTIC_APM
-    INSTALLED_APPS.append("elasticapm.contrib.django")
-    MIDDLEWARE.append("elasticapm.contrib.django.middleware.TracingMiddleware")
+    # ELASTIC_APM
+    # INSTALLED_APPS.append("elasticapm.contrib.django")
+    # MIDDLEWARE.append("elasticapm.contrib.django.middleware.TracingMiddleware")
 
 
 TEMPUS_DOMINUS_LOCALIZE = True
