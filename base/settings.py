@@ -279,7 +279,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Copyright
 COPYRIGHT = "Mateus Machado"
-WEBHOOK_DEPLOY_TOKEN = config("DEPLOY_TOKEN")
+WEBHOOK_DEPLOY_TOKEN = config("DEPLOY_TOKEN", default="")
 # Emails
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 EMAIL_HOST = config("EMAIL_HOST")
